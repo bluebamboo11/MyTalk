@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ChatKit</string>
+    <string name="sample_title_default">Default design</string>
+    <string name="sample_title_attrs">Styling using attributes</string>
+    <string name="sample_title_layout">Custom layout</string>
+    <string name="sample_title_holder">Custom view holder</string>
+    <string name="hint_enter_a_message">Type a message…</string>
+    <string name="on_log_click_message">Your custom long click handler</string>
+    <string name="action_delete">Delete</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string-array name="sex">
+        <item>Nam</item>
+        <item>Nu</item>
+        <item>Lesbian</item>
+        <item>Gay</item>
+    </string-array>
+</resources>

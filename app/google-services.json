@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "216231604079",
+    "firebase_url": "https://livechat-d7edd.firebaseio.com",
+    "project_id": "livechat-d7edd",
+    "storage_bucket": "livechat-d7edd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216231604079:android:ad68cc66e2ae9b07",
+        "android_client_info": {
+          "package_name": "com.example.blue.mytalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216231604079-8rlb2hvltr5eqaq52bt3kc4eauf6u1oe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.blue.mytalk",
+            "certificate_hash": "31c214b749a581bb9076cf9951878bee44886626"
+          }
+        },
+        {
+          "client_id": "216231604079-3mgh5egghm481tkltpgmsrfbjrpa31ft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl0slBeQM3Rk5efFQN9PWZjpLR5KKoYiA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216231604079-3mgh5egghm481tkltpgmsrfbjrpa31ft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

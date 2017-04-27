@@ -13,18 +13,24 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.MainActivity"
-                     android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".Activity.MessagesListActivity" >
+
+        </activity>
+        <activity android:name=".Activity.EmailActivity" />
+        <activity android:name=".Activity.NewMailActivity" />
+        <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MessagesListActivity" />
-        <activity android:name=".Activity.EmailActivity" />
-        <activity android:name=".Activity.NewMailActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".Activity.LoginActivity"></activity>
+        <activity android:name=".Activity.LoginActivity">
+
+        </activity>
     </application>
 
 </manifest>

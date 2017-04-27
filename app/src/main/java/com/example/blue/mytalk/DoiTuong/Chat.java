@@ -5,4 +5,14 @@ package com.example.blue.mytalk.DoiTuong;
  */
 
 public class Chat {
+    public String id;
+    public String name;
+
+    public Chat() {
+    }
+
+    public Chat(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

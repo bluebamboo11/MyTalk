@@ -5,18 +5,24 @@ package com.example.blue.mytalk.DoiTuong;
  */
 
 public class UserConnect {
-   public String id;
+
     public String name;
-    public String sex;
-
-
+    public int sex;
+    public int old;
+public Selective selective;
     public UserConnect() {
     }
 
-    public UserConnect(String id, String name, String sex) {
-        this.id = id;
+    public UserConnect(String name, int sex, int old) {
         this.name = name;
         this.sex = sex;
+        this.old = old;
+    }
 
+    public UserConnect(String name, int sex, int old, Selective selective) {
+        this.name = name;
+        this.sex = sex;
+        this.old = old;
+        this.selective = selective;
     }
 }

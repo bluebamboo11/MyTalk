@@ -14,4 +14,10 @@
         <item>Lesbian</item>
         <item>Gay</item>
     </string-array>
+    <string-array name="language">
+        <item>TiengViet</item>
+        <item>English</item>
+        <item>France</item>
+        <item>German</item>
+    </string-array>
 </resources>

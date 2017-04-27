@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_girl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Girl" />
+
+        <CheckBox
+            android:id="@+id/checkbox_boy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Boy" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_les"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lesbian" />
+
+        <CheckBox
+            android:id="@+id/checkbox_gay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gay" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_old"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                       android:text="Old" />
+
+        <EditText
+            android:id="@+id/edit_old_to"
+            android:inputType="number"
+            android:layout_gravity="center"
+            android:maxLength="2"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="to"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_old_from"
+            android:inputType="number"
+            android:layout_gravity="center"
+            android:maxLength="2"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ok" />
+
+        <Button
+            android:id="@id/button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_weight="1"
+            android:text="cancel" />
+    </LinearLayout>
 </LinearLayout>

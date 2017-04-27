@@ -1,4 +1,4 @@
-package com.example.blue.iamceo;
+package com.example.blue.mytalk;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,21 +8,31 @@ import android.preference.PreferenceManager;
  * Created by blue on 04/03/2017.
  */
 
-public class SaveLoadPreferences {
+public class SaveLoad {
     private Context context;
-    public static final String TONG_TIEN = "TT";
-    public static final String TONG_NGAY = "TN";
-    public static final String TONG_NGUOI = "TNG";
-    public static final String TONG_LV = "TL";
-    public static final String NHAN_SU_NGUOI = "NSN";
-    public static final String NHAN_SU_LV = "NSL";
-    public static final String KY_THUAT_NGUOI = "KTN";
-    public static final String KY_THUAT_LV = "KTL";
-    public static final String NGHIEN_CUU_NGUOI = "NCN";
-    public static final String NGHIEN_CUU_LV = "NCL";
-    public static final String TEN_CONG_TY = "TCT";
+    public static final String NAME = "name";
+    public static final String OLD = "old";
+    public static final String SEX = "sex";
+    public static final String LANGUAGE = "language";
+    public static final String CHECKPASS = "check";
+    public static final String PASS = "pass";
+    public static final String IS_CONNECT = "isconnect";
+    public static final String ID_CONNECT = "idconnect";
+    public static final String CBOY = "boy";
+    public static final String CGIRL = "girl";
+    public static final String CLESBIAN = "lesbian";
+    public static final String CGAY = "gay";
+    public static final String COLD = "cold";
+    public static final String TO_OLD = "Told";
+    public static final String FROM_COLD = "Fold";
+    public static final String C_NAME = "cname";
+    public static final String ONLINE = "online";
+    public static final int BOY = 1;
+    public static final int GIRL = 0;
+    public static final int LESBIAN = 2;
+    public static final int GAY = 3;
 
-    public SaveLoadPreferences(Context context) {
+    public SaveLoad(Context context) {
         this.context = context;
     }
 
@@ -33,9 +43,9 @@ public class SaveLoadPreferences {
         editor.apply();
     }
 
-    public boolean loadBoolean(String key) {
+    public boolean loadBoolean(String key, boolean df) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getBoolean(key, true);
+        return sharedPreferences.getBoolean(key, df);
 
     }
 

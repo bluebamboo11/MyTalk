@@ -18,8 +18,8 @@ import java.util.List;
  */
 
 public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.ViewHolder>{
-    Context context;
-    List<Email> emailList;
+   private Context context;
+     private List<Email> emailList;
 
 
 

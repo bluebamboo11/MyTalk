@@ -17,6 +17,7 @@ public class Database {
     public  static final   String TAB_MESSAGE="Message";
     public  static final   String TAB_USER="User";
     public  static final   String TAB_EMAIL="Email";
+    public  static final   String TAB_NO_FRIEND="nofriend";
 
 
     public static SQLiteDatabase initDatabase(Context context, String databaseName){

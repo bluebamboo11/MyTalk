@@ -10,7 +10,7 @@ public class DefaultUser implements IUser {
     private String name;
     private String avatar;
     private boolean online;
-private int count;
+    private int count;
 
     public DefaultUser(String id, String name, String avatar, boolean online) {
         this.id = id;
@@ -44,6 +44,10 @@ private int count;
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getAva() {
+        return avatar;
     }
 
     public boolean isOnline() {

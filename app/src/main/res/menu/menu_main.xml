@@ -2,21 +2,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.blue.mytalk.Activity.MainActivity">
-    <item
-        android:id="@+id/sign_out"
-        android:orderInCategory="100"
-        android:title="SignOut"
-        app:showAsAction="never" />
-    <group android:menuCategory="alternative">
     <item android:id="@+id/item_disconnect"
         android:title="disconnect"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_sync_disabled_black_24dp"
+        android:icon="@drawable/ic_disconnect_24dp"
         />
     <item android:id="@+id/item_add_friend"
         android:title="add Friend"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_person_add_black_24dp"
         />
-    </group>
+    <item
+        android:id="@+id/sign_out"
+        android:orderInCategory="100"
+        android:title="SignOut"
+        />
+    <item
+        android:id="@+id/item_seletive"
+        android:orderInCategory="100"
+        android:title="Seletive"
+         />
+    <item
+        android:id="@+id/item_account"
+        android:orderInCategory="100"
+        android:title="Account"
+        />
+
+
 </menu>

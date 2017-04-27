@@ -1,12 +1,12 @@
 /**
  * Copyright Google Inc. All Rights Reserved.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.blue.mytalk.Activity.LoginActivity;
 import com.example.blue.mytalk.Activity.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -36,6 +37,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignInActivity extends AppCompatActivity implements
@@ -53,13 +55,25 @@ public class SignInActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
         mFirebaseAuth = FirebaseAuth.getInstance();
-        // Assign fields
+        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (mFirebaseUser != null) {
+
+            finish();
+            overridePendingTransition(0, 0);
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            return;
+        }
+        setContentView(R.layout.activity_sign_in);
+
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
-        // Set click listeners
         mSignInButton.setOnClickListener(this);
+
+        // Set click listeners
+
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -90,10 +104,12 @@ public class SignInActivity extends AppCompatActivity implements
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
+
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -111,6 +127,8 @@ public class SignInActivity extends AppCompatActivity implements
             }
         }
     }
+
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGooogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -128,8 +146,21 @@ public class SignInActivity extends AppCompatActivity implements
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                            finish();
+                            SaveLoad saveLoad = new SaveLoad(SignInActivity.this);
+                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                            assert firebaseUser != null;
+                            String uid = firebaseUser.getUid();
+                            if (saveLoad.loadString(SaveLoad.NAME + uid, "").equals("")) {
+
+                                Intent intent = new Intent(SignInActivity.this, LoginActivity.class);
+                                intent.putExtra("uid", uid);
+                                startActivity(intent);
+                            } else {
+                                finish();
+                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+
+                            }
+
                         }
                     }
                 });

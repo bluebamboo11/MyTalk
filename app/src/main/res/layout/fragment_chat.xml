@@ -1,24 +1,93 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-        >
-<ImageView
 
+    android:layout_height="match_parent">
 
-    android:scaleType="center"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/img_chay"/>
+    <ImageView
+        android:id="@+id/img_chay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center" />
+
+    <LinearLayout
+        android:id="@+id/layout_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_weight="6"
+            android:id="@+id/layout_name"
+           android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+           android:layout_width="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:text="Thanh tung" />
+
+            <ImageView
+                android:id="@+id/img_online"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+
+                android:src="@drawable/ic_offline_24dp" />
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_load"
+        android:layout_weight="6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <ProgressBar
+              android:id="@+id/progressBar_load_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp" />
+    </LinearLayout>
+        <TextView
+            android:id="@+id/text_love"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="14" />
+
+        <ImageView
+            android:id="@+id/img_love"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/dis_love" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/layout_user"
+        android:background="@color/gray_dark_transparent" />
+
     <com.stfalcon.chatkit.messages.MessagesList
         android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/layout_user"
         android:layout_above="@+id/input"
         app:incomingBubbleDrawable="@drawable/bg_custom_incoming_message"
         app:outcomingBubbleDrawable="@drawable/bg_custom_outcoming_message"
-        app:outcomingTimeTextColor="@color/gray_dark_transparent"/>
+        app:outcomingTimeTextColor="@color/gray_dark_transparent" />
 
     <View
         android:layout_width="match_parent"
@@ -26,16 +95,18 @@
         android:layout_above="@+id/input"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/gray_light"/>
+        android:background="@color/gray_light" />
 
     <com.stfalcon.chatkit.messages.MessageInput
         android:id="@+id/input"
-     app:inputTextColor="@color/gray_dark_transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_alignParentBottom="true"
         app:inputButtonBackground="@drawable/bg_custom_layout_send"
         app:inputButtonIcon="@drawable/ic_send_selector"
-        app:inputHint="@string/hint_enter_a_message"/>
+        app:inputHint="@string/hint_enter_a_message"
+        app:inputTextColor="@color/gray_dark_transparent" />
+
 
 </RelativeLayout>

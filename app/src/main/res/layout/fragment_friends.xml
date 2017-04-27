@@ -5,7 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <android.support.v7.widget.RecyclerView
+
+        android:id="@+id/recycleview_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <com.stfalcon.chatkit.dialogs.DialogsList
+       android:layout_below="@+id/recycleview_friend"
         android:id="@+id/dialogsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

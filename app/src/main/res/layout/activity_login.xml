@@ -13,20 +13,32 @@
         android:orientation="vertical">
 
         <EditText
-
+            android:maxLength="8"
+            android:inputType="textPassword"
+            android:id="@+id/text_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password" />
+
+        <CheckBox
+            android:id="@+id/checkbox_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhap mat khau khi khoi dong" />
+
         <EditText
-            android:layout_marginTop="10dp"
+
+            android:maxLength="20"
+            android:id="@+id/text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:hint="name" />
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -39,13 +51,13 @@
                 android:id="@+id/spinner_old"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="2" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -55,19 +67,38 @@
                 android:text="Gioi tinh" />
 
             <Spinner
-                android:entries="@array/sex"
                 android:id="@+id/spinner_sex"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="2"
+                android:entries="@array/sex" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Language" />
+
+            <Spinner
+                android:id="@+id/spinner_Language"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:entries="@array/language" />
+        </LinearLayout>
     </LinearLayout>
+
     <Button
-        android:text="SAVE"
         android:id="@+id/buton_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        />
+        android:text="SAVE" />
 </RelativeLayout>

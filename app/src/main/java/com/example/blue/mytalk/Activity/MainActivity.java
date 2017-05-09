@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.blue.mytalk.Fragment.ChatFragment;
@@ -38,25 +39,28 @@ import com.google.firebase.database.ValueEventListener;
 import static com.example.blue.mytalk.Fragment.ChatFragment.CONNECT;
 
 public class MainActivity extends AppCompatActivity {
-    private TabLayout tabLayout;
+//    private TabLayout tabLayout;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mFirebaseDatabaseReference;
     private GoogleApiClient mGoogleApiClient;
     FirebaseDatabase firebaseDatabase;
     private static ChatFragment chatFragment;
-    private static ValueEventListener valueEventListenerOnline;
-    private static ValueEventListener valueEventListenerStatus;
+
+
     private static ValueEventListener valueEventListenerCid;
-    private DatabaseReference dfStatus;
+
+    private DatabaseReference connectedRef;
     private static DatabaseReference dfCid;
+    private static ValueEventListener valueEventListenerConnect;
+    private static boolean connected;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
     private String uid;
     private static SaveLoad saveLoad;
-    public static boolean ok;
+
     private static MenuItem item;
 
     @Override
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Chat");
         setupViewPage();
         setupTablayout();
-        setOnline();
+
         if (mFirebaseUser == null) {
             startActivity(new Intent(this, SignInActivity.class));
             finish();
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        checkConnect();
     }
 
     private void setupTablayout() {
@@ -183,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         boolean isconnect = saveLoad.loadBoolean(SaveLoad.IS_CONNECT + uid, true);
-                onConnect(isconnect);
+        onConnect(isconnect);
+        connectedRef.addValueEventListener(valueEventListenerConnect);
+
     }
 
     @Override
@@ -191,10 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.sign_out:
-                mFirebaseAuth.signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                startActivity(new Intent(this, SignInActivity.class));
-                finish();
+                signOut();
 
                 return true;
             case (R.id.item_disconnect):
@@ -205,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                     openDialogConnect("Disconnect", "You are disconnect");
 
                 } else {
-
+                    item.setIcon(R.drawable.ic_load_24dp);
                     connect();
                 }
 
@@ -345,30 +348,10 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void setOnline() {
-        valueEventListenerOnline = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = dataSnapshot.getValue(Boolean.class);
-                if (connected) {
-                    mFirebaseDatabaseReference.child(ChatFragment.USER).child(uid).child("online").setValue(true);
-                    mFirebaseDatabaseReference.child(ChatFragment.USER).child(uid).child("online").onDisconnect().setValue(false);
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+    private String cid = "";
 
-            }
-        };
-        mFirebaseDatabaseReference.child(".info/connected").removeEventListener(valueEventListenerOnline);
-        mFirebaseDatabaseReference.child(".info/connected").addValueEventListener(valueEventListenerOnline);
-
-    }
-
-    private String cid="";
-
-    private void onConnect( boolean connect) {
+    private void onConnect(boolean connect) {
 
         if (connect) {
             valueEventListenerCid = new ValueEventListener() {
@@ -401,12 +384,16 @@ public class MainActivity extends AppCompatActivity {
         if (dfCid != null) {
             dfCid.removeEventListener(valueEventListenerCid);
         }
+        connectedRef.removeEventListener(valueEventListenerConnect);
+
     }
 
     private void disConnect() {
         if (uid != null) {
             if (ChatFragment.getCid() != null && !ChatFragment.getCid().equals("0") && !cid.equals("0")) {
-                onConnect(false);
+                if (dfCid != null && valueEventListenerCid != null) {
+                    dfCid.removeEventListener(valueEventListenerCid);
+                }
                 mFirebaseDatabaseReference.child(ChatFragment.USER).child(ChatFragment.getCid()).child(CONNECT).child("chat").child("id").setValue("0", new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -425,13 +412,16 @@ public class MainActivity extends AppCompatActivity {
                 });
             } else {
                 chatFragment.isConnect(false);
+                if (dfCid != null && valueEventListenerCid != null) {
+                    dfCid.removeEventListener(valueEventListenerCid);
+                }
                 mFirebaseDatabaseReference.child(ChatFragment.USER).child(uid).child(CONNECT).child("chat").child("id").setValue("0", new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         saveLoad.seveBoolean(SaveLoad.IS_CONNECT + uid, false);
                         saveLoad.saveString(SaveLoad.ID_CONNECT + uid, null);
-                        onConnect(false);
-                        item.setIcon(R.drawable.ic_conect_24dp);
+                     item.setIcon(R.drawable.ic_conect_24dp);
+
                     }
                 });
             }
@@ -464,6 +454,7 @@ public class MainActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
+                                item.setIcon(R.drawable.ic_load_24dp);
                                 connect();
 
                             }
@@ -482,9 +473,64 @@ public class MainActivity extends AppCompatActivity {
                 item.setIcon(R.drawable.ic_disconnect_24dp);
                 saveLoad.seveBoolean(SaveLoad.IS_CONNECT + uid, true);
                 chatFragment.isConnect(true);
-                onConnect( true);
+                onConnect(true);
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+
+    }
+
+    private void checkConnect() {
+        connectedRef = mFirebaseDatabaseReference.child(".info/connected");
+        valueEventListenerConnect = new ValueEventListener() {
+            TextView textView = (TextView) findViewById(R.id.text_connect);
+
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                connected = snapshot.getValue(Boolean.class);
+                if (connected) {
+                    textView.setVisibility(View.GONE);
+                    mFirebaseDatabaseReference.child(ChatFragment.USER).child(uid).child("online").setValue(true);
+                    mFirebaseDatabaseReference.child(ChatFragment.USER).child(uid).child("online").onDisconnect().setValue(false);
+
+                } else {
+                    textView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        };
+
+    }
+
+    private void signOut() {
+        if (connected) {
+            mFirebaseDatabaseReference.child(ChatFragment.USER).child(uid).child("online").setValue(false);
+            mFirebaseDatabaseReference.child(ChatFragment.USER).child(uid).child("idtoken").removeValue(new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                    if (databaseError == null) {
+                        mFirebaseAuth.signOut();
+                        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+                        saveLoad.saveString(SaveLoad.UID, null);
+                        Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(this, "Hien mat ket noi khong the dang xuat", Toast.LENGTH_LONG).show();
+        }
     }
 }

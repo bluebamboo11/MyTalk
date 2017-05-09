@@ -50,6 +50,10 @@ public class DefaultUser implements IUser {
         return avatar;
     }
 
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
     public boolean isOnline() {
         return online;
     }

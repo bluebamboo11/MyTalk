@@ -27,6 +27,8 @@ public class SaveLoad {
     public static final String FROM_COLD = "Fold";
     public static final String C_NAME = "cname";
     public static final String ONLINE = "online";
+    public static final String UID = "uid";
+
     public static final int BOY = 1;
     public static final int GIRL = 0;
     public static final int LESBIAN = 2;

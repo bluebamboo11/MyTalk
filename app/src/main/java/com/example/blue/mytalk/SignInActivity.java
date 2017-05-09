@@ -39,15 +39,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     private FirebaseAuth mFirebaseAuth;
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
-
     private SignInButton mSignInButton;
-
     private GoogleApiClient mGoogleApiClient;
 
     // Firebase instance variables
@@ -146,20 +148,29 @@ public class SignInActivity extends AppCompatActivity implements
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            SaveLoad saveLoad = new SaveLoad(SignInActivity.this);
+                            final SaveLoad saveLoad = new SaveLoad(SignInActivity.this);
                             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
                             assert firebaseUser != null;
-                            String uid = firebaseUser.getUid();
-                            if (saveLoad.loadString(SaveLoad.NAME + uid, "").equals("")) {
+                            final String uid = firebaseUser.getUid();
+                            saveLoad.saveString(SaveLoad.UID, uid);
+                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(uid).child("idtoken");
+                            String token = FirebaseInstanceId.getInstance().getToken();
+                            databaseReference.setValue(token, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                    if (saveLoad.loadString(SaveLoad.NAME + uid, "").equals("")) {
 
-                                Intent intent = new Intent(SignInActivity.this, LoginActivity.class);
-                                intent.putExtra("uid", uid);
-                                startActivity(intent);
-                            } else {
-                                finish();
-                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                        Intent intent = new Intent(SignInActivity.this, LoginActivity.class);
 
-                            }
+                                        startActivity(intent);
+                                    } else {
+                                        finish();
+                                        startActivity(new Intent(SignInActivity.this, MainActivity.class));
+
+                                    }
+                                }
+                            });
+
 
                         }
                     }

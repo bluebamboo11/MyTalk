@@ -45,7 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         for (int i = 0; i < 80; i++) {
             olds[i] = yead - 10 - i;
         }
-        uid = getIntent().getStringExtra("uid");
+        SaveLoad saveLoad=new SaveLoad(this);
+        uid = saveLoad.loadString(SaveLoad.UID, null);
         spinnerOld = (Spinner) findViewById(R.id.spinner_old);
         ArrayAdapter<Integer> oldAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, olds);
         oldAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

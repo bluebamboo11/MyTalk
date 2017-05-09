@@ -14,6 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.blue.mytalk.Database.DatabaseManager;
 import com.example.blue.mytalk.DoiTuong.Chat;
 import com.example.blue.mytalk.DoiTuong.DefaultUser;
@@ -23,6 +28,7 @@ import com.example.blue.mytalk.DoiTuong.Selective;
 import com.example.blue.mytalk.DoiTuong.UserConnect;
 import com.example.blue.mytalk.Messages.CustomIncomingMessageViewHolder;
 import com.example.blue.mytalk.Messages.CustomOutcomingMessageViewHolder;
+import com.example.blue.mytalk.MySingleton;
 import com.example.blue.mytalk.R;
 import com.example.blue.mytalk.SaveLoad;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,12 +47,17 @@ import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -93,7 +104,9 @@ public class ChatFragment extends Fragment {
     private static FirebaseAuth mFirebaseAuth;
     private static FirebaseAuth.AuthStateListener mAuthListener;
     private static ArrayList<String> noFriendArrayList;
-
+    private static   DatabaseReference dfToken;
+    private static  ValueEventListener valueEventListeneToekn;
+private static  String idtoken;
     public ChatFragment() {
 
     }
@@ -222,7 +235,7 @@ public class ChatFragment extends Fragment {
                                     if (!c.equals(uid)) {
                                         mFirebaseDatabaseReference.child(USER).child(uid).child(CONNECT).child(CHAT).child("id").removeValue();
                                     } else {
-
+                                        getIdToken();
                                         setOnline();
                                         mFirebaseDatabaseReference.child(USER).child(uid).child(CONNECT).child(CHAT).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
@@ -268,6 +281,7 @@ public class ChatFragment extends Fragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     uid = user.getUid();
+
                     refMessages = mFirebaseDatabaseReference.child(USER).child(uid).child("message");
                     isConnect(saveLoad.loadBoolean(SaveLoad.IS_CONNECT + uid, true));
                     getNoFriend();
@@ -351,6 +365,7 @@ public class ChatFragment extends Fragment {
         mFirebaseAuth.addAuthStateListener(mAuthListener);
 
 
+
     }
 
     private void getMessage() {
@@ -375,7 +390,7 @@ public class ChatFragment extends Fragment {
                         }
                         Message message = new Message(messageFireBase.text, defaultUser, date);
                         adapter.addToStart(message, true);
-                        databaseManager.setMessages(message, Cid);
+                        databaseManager.setMessages(message,Cid);
                         intId++;
                     }
 
@@ -411,7 +426,7 @@ public class ChatFragment extends Fragment {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         final Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-
+        sendFMC(saveLoad.loadString(SaveLoad.NAME+Cid,""),message.getText());
         mFirebaseDatabaseReference.child(USER).child(Cid).child("message").push().setValue(new MessageFireBase(message.getUser().getId(), message.getText(), dateFormat.format(calendar.getTime())), new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -473,6 +488,7 @@ public class ChatFragment extends Fragment {
                                             Chat chat = dataSnapshot.getValue(Chat.class);
                                             if (b && chat.id.equals(KeyCid)) {
                                                 Checkconnect = true;
+                                                saveLoad.saveString(SaveLoad.NAME+Cid,saveLoad.loadString(SaveLoad.NAME,""));
                                                 mFirebaseDatabaseReference.child(lau).removeValue();
                                                 mFirebaseDatabaseReference.child(lau).child(uid).removeValue();
                                             }
@@ -623,6 +639,9 @@ public class ChatFragment extends Fragment {
         if (dfNofriend != null) {
             dfNofriend.removeEventListener(childEventListenerNoFriend);
         }
+        if (dfToken != null) {
+            dfToken.removeEventListener(valueEventListeneToekn);
+        }
     }
 
     private void initFirtData() {
@@ -689,4 +708,57 @@ public class ChatFragment extends Fragment {
         }
         return true;
     }
+
+    private void sendFMC(String title,String body) {
+        JSONObject json = new JSONObject();
+        JSONObject dataJson = new JSONObject();
+        String url = "https://fcm.googleapis.com/fcm/send";
+        try {
+            dataJson.put("body", body);
+            dataJson.put("title", title);
+            json.put("notification", dataJson);
+            json.put("to", idtoken);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, json, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", "key=AAAAMlhob28:APA91bH31QZtLp1CRdKvlE3RDEtlO9vXG5UN-AruQkMvlhMSD8GPrqc1rdZ-bsI8fQvz4MfR_UexHLqNoTPlSikYc1H--a-1DRU1XaFdjLqbluB7sa78Ou8OHMOrku3rjrONA4I70mg7");
+                return params;
+            }
+        };
+       MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void getIdToken(){
+        if(Cid!=null){
+         dfToken=mFirebaseDatabaseReference.child(USER).child(Cid).child("idtoken");
+         valueEventListeneToekn=new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                 idtoken=dataSnapshot.getValue(String.class);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        dfToken.addValueEventListener(valueEventListeneToekn);
+    }}
+
 }

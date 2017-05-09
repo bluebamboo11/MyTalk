@@ -155,7 +155,7 @@ public class MessagesListActivity extends AppCompatActivity {
                         }
                         Message message = new Message(messageFireBase.text, defaultUser, date);
                         adapter.addToStart(message, true);
-                        databaseManager.setMessages(message, Cid);
+
                         intId++;
                     }
 

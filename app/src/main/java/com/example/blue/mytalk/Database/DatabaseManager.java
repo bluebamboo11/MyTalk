@@ -103,12 +103,19 @@ public class DatabaseManager {
             return null;
         }
         String name = cursor.getString(1);
+        int count = cursor.getInt(2);
 
-        String uid = cursor.getString(0);
         String avatar = cursor.getString(3);
-        return new DefaultUser(uid, name, avatar, true);
+        DefaultUser defaultUser = new DefaultUser(id, name, avatar, false);
+        defaultUser.setCount(count);
+        return defaultUser;
     }
 
+    public void updateUser(String id, int me) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("count",me);
+        datasource.update(Database.TAB_USER,contentValues,"id=?",new String[]{id});
+    }
 
     public ArrayList<DefaultUser> getAllUser() {
         ArrayList<DefaultUser> defaultUsers = new ArrayList<>();

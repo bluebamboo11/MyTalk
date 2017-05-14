@@ -15,17 +15,17 @@
     <item
         android:id="@+id/sign_out"
         android:orderInCategory="100"
-        android:title="SignOut"
+        android:title="@string/SignOut"
         />
     <item
         android:id="@+id/item_seletive"
         android:orderInCategory="100"
-        android:title="Seletive"
+        android:title="@string/chonloc"
          />
     <item
         android:id="@+id/item_account"
         android:orderInCategory="100"
-        android:title="Account"
+        android:title="@string/taikhoan"
         />
 
 

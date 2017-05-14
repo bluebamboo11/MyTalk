@@ -11,12 +11,25 @@ public class DefaultUser implements IUser {
     private String avatar;
     private boolean online;
     private int count;
+    private int love;
+    public static final int LOVE = 1;
+    public static final int NO_LOVE = 0;
+
 
     public DefaultUser(String id, String name, String avatar, boolean online) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
         this.online = online;
+        love = NO_LOVE;
+    }
+
+    public int getLove() {
+        return love;
+    }
+
+    public void setLove(int love) {
+        this.love = love;
     }
 
     @Override

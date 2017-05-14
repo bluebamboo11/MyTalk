@@ -45,6 +45,7 @@ public class SelectiveDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selective_dialog);
+        setTitle(R.string.chonloc);
         uid = ChatFragment.getUid();
         saveLoad = new SaveLoad(getContext());
         checkBoxBoy = (CheckBox) findViewById(R.id.checkbox_boy);

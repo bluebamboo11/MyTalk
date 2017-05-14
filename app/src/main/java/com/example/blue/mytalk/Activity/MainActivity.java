@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import static com.example.blue.mytalk.Fragment.ChatFragment.CONNECT;
 
 public class MainActivity extends AppCompatActivity {
-//    private TabLayout tabLayout;
+    //    private TabLayout tabLayout;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mFirebaseDatabaseReference;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference connectedRef;
     private static DatabaseReference dfCid;
     private static ValueEventListener valueEventListenerConnect;
-    private static boolean connected;
+    public static boolean connected;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.e("menu", "start");
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         item = menu.findItem(R.id.item_disconnect);
@@ -201,21 +200,28 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case (R.id.item_disconnect):
+                if (connected) {
+                    boolean isconnect = saveLoad.loadBoolean(SaveLoad.IS_CONNECT + uid, true);
+                    if (isconnect) {
 
-                boolean isconnect = saveLoad.loadBoolean(SaveLoad.IS_CONNECT + uid, true);
-                if (isconnect) {
+                        openDialogConnect();
 
-                    openDialogConnect("Disconnect", "You are disconnect");
-
+                    } else {
+                        item.setIcon(R.drawable.ic_load_24dp);
+                        connect();
+                    }
                 } else {
-                    item.setIcon(R.drawable.ic_load_24dp);
-                    connect();
+                    Toast.makeText(this, R.string.disconect, Toast.LENGTH_SHORT).show();
                 }
 
                 return true;
             case R.id.item_add_friend:
-                openDialogAddFriend("Add friend", "you add friend");
-
+                if (connected) {
+                String name = saveLoad.loadString(SaveLoad.C_NAME+uid, "");
+                openDialogAddFriend(getResources().getString(R.string.keban), getResources().getString(R.string.moikeban) + name);
+                } else {
+                    Toast.makeText(this, R.string.disconect, Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id.item_seletive:
                 SelectiveDialog selectiveDialog = new SelectiveDialog(this);
@@ -276,16 +282,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openDialogConnect(String title, String message) {
+    private void openDialogConnect() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MainActivity.this);
 
-        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setTitle(R.string.disconect);
 
         alertDialogBuilder
-                .setMessage(message)
+                .setMessage(R.string.matketnoi)
                 .setCancelable(true)
-                .setPositiveButton("No",
+                .setPositiveButton(R.string.No,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -293,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
 
-                .setNegativeButton("Yes",
+                .setNegativeButton(R.string.yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -316,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(true)
-                .setPositiveButton("No",
+                .setPositiveButton(R.string.No,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -324,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
 
-                .setNegativeButton("Yes",
+                .setNegativeButton(R.string.yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -334,10 +340,10 @@ public class MainActivity extends AppCompatActivity {
                                         String name = saveLoad.loadString(SaveLoad.NAME + ChatFragment.getUid(), "");
                                         mFirebaseDatabaseReference.child(ChatFragment.USER).child(ChatFragment.getCid()).child("addFriend").child("chat").child(ChatFragment.getUid()).setValue(name);
                                     } else {
-                                        Toast.makeText(MainActivity.this, "He thong dang load thong tin xin thu lai sau", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(MainActivity.this, R.string.taidulieu, Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Hien chua co ket noi nao", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, R.string.chuaketnoi, Toast.LENGTH_LONG).show();
 
                                 }
                             }
@@ -360,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
                     cid = dataSnapshot.getValue(String.class);
                     if (cid != null && cid.equals("0")) {
                         disConnect();
-                        openDialogDisconnect("Disconnect", "Ban vua  bi ngat ket noi chon ok de tiep tuc ket noi");
+                        openDialogDisconnect();
                     }
                 }
 
@@ -420,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         saveLoad.seveBoolean(SaveLoad.IS_CONNECT + uid, false);
                         saveLoad.saveString(SaveLoad.ID_CONNECT + uid, null);
-                     item.setIcon(R.drawable.ic_conect_24dp);
+                        item.setIcon(R.drawable.ic_conect_24dp);
 
                     }
                 });
@@ -433,16 +439,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void openDialogDisconnect(String title, String message) {
+    private void openDialogDisconnect() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MainActivity.this);
 
-        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setTitle(R.string.disconect);
 
         alertDialogBuilder
-                .setMessage(message)
+                .setMessage(R.string.bimatketnoi)
                 .setCancelable(true)
-                .setPositiveButton("No",
+                .setPositiveButton(R.string.No,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -450,7 +456,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
 
-                .setNegativeButton("Yes",
+                .setNegativeButton(R.string.yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
@@ -530,7 +536,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Toast.makeText(this, "Hien mat ket noi khong the dang xuat", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.dangxuat, Toast.LENGTH_LONG).show();
         }
     }
 }

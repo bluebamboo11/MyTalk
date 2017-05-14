@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.blue.mytalk.Activity.MainActivity;
 import com.example.blue.mytalk.Database.DatabaseManager;
 import com.example.blue.mytalk.DoiTuong.Chat;
 import com.example.blue.mytalk.DoiTuong.DefaultUser;
@@ -58,6 +58,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import static com.example.blue.mytalk.R.drawable.ic_heart_24dp;
+import static com.example.blue.mytalk.R.drawable.ic_love_24dp;
 
 
 /**
@@ -104,9 +107,15 @@ public class ChatFragment extends Fragment {
     private static FirebaseAuth mFirebaseAuth;
     private static FirebaseAuth.AuthStateListener mAuthListener;
     private static ArrayList<String> noFriendArrayList;
-    private static   DatabaseReference dfToken;
-    private static  ValueEventListener valueEventListeneToekn;
-private static  String idtoken;
+    private static DatabaseReference dfToken;
+    private static ValueEventListener valueEventListeneToekn;
+    private DatabaseReference dfSetLove;
+    private ValueEventListener valueEventListenerLove;
+    private TextView textLove;
+    private ImageView imgLove;
+    private static String idtoken;
+    private int love;
+
     public ChatFragment() {
 
     }
@@ -136,10 +145,12 @@ private static  String idtoken;
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         textname = (TextView) view.findViewById(R.id.text_name);
-        Log.e("fragment", "start");
+
         linearLayoutLoad = (LinearLayout) view.findViewById(R.id.layout_load);
         linearLayoutName = (LinearLayout) view.findViewById(R.id.layout_name);
         linearLayoutUser = (LinearLayout) view.findViewById(R.id.layout_user);
+        textLove = (TextView) view.findViewById(R.id.text_love);
+        imgLove = (ImageView) view.findViewById(R.id.img_love);
         imageViewOline = (ImageView) view.findViewById(R.id.img_online);
         Checkconnect = true;
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -159,10 +170,11 @@ private static  String idtoken;
         firebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseDatabaseReference = firebaseDatabase.getReference();
 
+
         MessageInput input = (MessageInput) view.findViewById(R.id.input);
         if (logic && Cid != null) {
             logic = false;
-            ArrayList<Message> messageF = databaseManager.getAllMessages(Cid, false);
+            ArrayList<Message> messageF = databaseManager.getAllMessages(Cid, uid,false);
             for (Message message : messageF) {
                 sentMessage(message);
             }
@@ -171,13 +183,13 @@ private static  String idtoken;
         input.setInputListener(new MessageInput.InputListener() {
             @Override
             public boolean onSubmit(final CharSequence input) {
-                if (Cid != null) {
+                if (Cid != null & idtoken != null) {
                     DefaultUser defaultUser = new DefaultUser(uid, "", "", true);
                     final Calendar calendar = Calendar.getInstance();
                     calendar.add(Calendar.DAY_OF_MONTH, -1);
                     final Message message = new Message(intId++, input.toString(), defaultUser, calendar.getTime());
                     message.setSent(false);
-                    databaseManager.setMessages(message, Cid);
+                    databaseManager.setMessages(message ,Cid,uid);
                     adapter.addToStart(message, true);
                     sentMessage(message);
                     return true;
@@ -256,12 +268,13 @@ private static  String idtoken;
                                         }
                                         mFirebaseDatabaseReference.child(lau).child(uid).removeValue();
                                         try {
-                                            databaseManager.creatTab(Cid);
+                                            databaseManager.creatTab(uid,Cid);
                                         } catch (Exception ignored) {
 
                                         }
-
+                                        saveLoad.saveString(SaveLoad.NAME + Cid, saveLoad.loadString(SaveLoad.NAME + uid, ""));
                                         getMessage();
+                                        setLove();
                                     }
                                 }
                             }
@@ -363,8 +376,7 @@ private static  String idtoken;
         super.onResume();
         adapter.unselectAllItems();
         mFirebaseAuth.addAuthStateListener(mAuthListener);
-
-
+        setupLove();
 
     }
 
@@ -379,21 +391,21 @@ private static  String idtoken;
                 if (!dataSnapshot.getKey().equals(key)) {
                     key = dataSnapshot.getKey();
                     MessageFireBase messageFireBase = dataSnapshot.getValue(MessageFireBase.class);
-                    if (messageFireBase.id.equals(Cid)) {
-                        DefaultUser defaultUser = new DefaultUser(Cid, "", "", true);
-                        Date date = null;
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                        try {
-                            date = dateFormat.parse(messageFireBase.date);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        Message message = new Message(messageFireBase.text, defaultUser, date);
-                        adapter.addToStart(message, true);
-                        databaseManager.setMessages(message,Cid);
-                        intId++;
-                    }
 
+                    DefaultUser defaultUser = new DefaultUser(messageFireBase.id, "", "", true);
+                    Date date = null;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                    try {
+                        date = dateFormat.parse(messageFireBase.date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Message message = new Message(messageFireBase.text, defaultUser, date);
+                    if (messageFireBase.id.equals(Cid)) {
+                        adapter.addToStart(message, true);
+
+                    }
+                    intId++;
                 }
 
             }
@@ -426,14 +438,14 @@ private static  String idtoken;
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         final Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        sendFMC(saveLoad.loadString(SaveLoad.NAME+Cid,""),message.getText());
+        sendFMC(saveLoad.loadString(SaveLoad.NAME + Cid, ""), message.getText());
         mFirebaseDatabaseReference.child(USER).child(Cid).child("message").push().setValue(new MessageFireBase(message.getUser().getId(), message.getText(), dateFormat.format(calendar.getTime())), new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 message.setSent(true);
                 message.setDate(calendar.getTime());
                 adapter.update(message);
-                databaseManager.updateMessages(message, Cid);
+                databaseManager.updateMessages(message, Cid,uid);
             }
         });
     }
@@ -488,7 +500,7 @@ private static  String idtoken;
                                             Chat chat = dataSnapshot.getValue(Chat.class);
                                             if (b && chat.id.equals(KeyCid)) {
                                                 Checkconnect = true;
-                                                saveLoad.saveString(SaveLoad.NAME+Cid,saveLoad.loadString(SaveLoad.NAME,""));
+                                                saveLoad.saveString(SaveLoad.NAME + Cid, saveLoad.loadString(SaveLoad.NAME, ""));
                                                 mFirebaseDatabaseReference.child(lau).removeValue();
                                                 mFirebaseDatabaseReference.child(lau).child(uid).removeValue();
                                             }
@@ -600,10 +612,10 @@ private static  String idtoken;
                     boolean online = dataSnapshot.getValue(Boolean.class);
                     if (online) {
                         saveLoad.seveBoolean(SaveLoad.ONLINE + uid, true);
-                        imageViewOline.setImageResource(R.drawable.ic_online_24dp);
+                        imageViewOline.setImageResource(R.drawable.shape_bubble_online);
                     } else {
                         saveLoad.seveBoolean(SaveLoad.ONLINE + uid, false);
-                        imageViewOline.setImageResource(R.drawable.ic_offline_24dp);
+                        imageViewOline.setImageResource(R.drawable.shape_bubble_offline);
                     }
                 }
             }
@@ -642,6 +654,9 @@ private static  String idtoken;
         if (dfToken != null) {
             dfToken.removeEventListener(valueEventListeneToekn);
         }
+        if (dfSetLove != null) {
+            dfSetLove.removeEventListener(valueEventListenerLove);
+        }
     }
 
     private void initFirtData() {
@@ -649,12 +664,17 @@ private static  String idtoken;
 
             name = saveLoad.loadString(SaveLoad.C_NAME + uid, "");
             setName(name);
-            messages = databaseManager.getAllMessages(Cid);
+            try {
+                messages = databaseManager.getAllMessages(Cid, uid);
+            }catch (Exception ignored){
+                databaseManager.creatTab(Cid,uid);
+                messages = databaseManager.getAllMessages(Cid, uid);
+            }
             boolean online = saveLoad.loadBoolean(SaveLoad.ONLINE + uid, false);
             if (online) {
-                imageViewOline.setImageResource(R.drawable.ic_online_24dp);
+                imageViewOline.setImageResource(R.drawable.shape_bubble_online);
             } else {
-                imageViewOline.setImageResource(R.drawable.ic_offline_24dp);
+                imageViewOline.setImageResource(R.drawable.shape_bubble_offline);
             }
         } else {
             messages = new ArrayList<>();
@@ -663,13 +683,13 @@ private static  String idtoken;
     }
 
     private void getNoFriend() {
-        noFriendArrayList = databaseManager.getNoFriend();
+        noFriendArrayList = databaseManager.getNoFriend(uid);
         childEventListenerNoFriend = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String id = dataSnapshot.getValue(String.class);
                 try {
-                    databaseManager.setNoFriend(id);
+                    databaseManager.setNoFriend(id,uid);
                     noFriendArrayList.add(id);
                 } catch (Exception ignored) {
 
@@ -709,13 +729,14 @@ private static  String idtoken;
         return true;
     }
 
-    private void sendFMC(String title,String body) {
+    private void sendFMC(String title, String body) {
         JSONObject json = new JSONObject();
         JSONObject dataJson = new JSONObject();
         String url = "https://fcm.googleapis.com/fcm/send";
         try {
             dataJson.put("body", body);
             dataJson.put("title", title);
+            dataJson.put("sound", "good.mp3");
             json.put("notification", dataJson);
             json.put("to", idtoken);
         } catch (JSONException e) {
@@ -740,17 +761,68 @@ private static  String idtoken;
                 return params;
             }
         };
-       MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
-    private void getIdToken(){
-        if(Cid!=null){
-         dfToken=mFirebaseDatabaseReference.child(USER).child(Cid).child("idtoken");
-         valueEventListeneToekn=new ValueEventListener() {
+    private void getIdToken() {
+        if (Cid != null) {
+            dfToken = mFirebaseDatabaseReference.child(USER).child(Cid).child("idtoken");
+            valueEventListeneToekn = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    idtoken = dataSnapshot.getValue(String.class);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+            dfToken.addValueEventListener(valueEventListeneToekn);
+        }
+    }
+
+    private void setupLove() {
+
+        love = saveLoad.loadInteger(SaveLoad.LOVE + Cid, DefaultUser.NO_LOVE);
+        if (love == DefaultUser.LOVE) {
+            imgLove.setImageResource(ic_love_24dp);
+        } else {
+            imgLove.setImageResource(ic_heart_24dp);
+        }
+        imgLove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Cid != null && MainActivity.connected) {
+                    if (love == DefaultUser.LOVE) {
+                        love = DefaultUser.NO_LOVE;
+                        saveLoad.saveInteger(SaveLoad.LOVE + Cid, DefaultUser.NO_LOVE);
+                        imgLove.setImageResource(ic_heart_24dp);
+                        pushLove(-1);
+                    } else {
+                        love = DefaultUser.LOVE;
+                        saveLoad.saveInteger(SaveLoad.LOVE + Cid, DefaultUser.LOVE);
+                        imgLove.setImageResource(ic_love_24dp);
+                        pushLove(1);
+                    }
+                } else {
+                    Toast.makeText(getContext(), R.string.disconect, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void setLove() {
+
+        dfSetLove = mFirebaseDatabaseReference.child(USER).child(Cid).child("love");
+        valueEventListenerLove = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 idtoken=dataSnapshot.getValue(String.class);
-
+                if (dataSnapshot.getValue() != null) {
+                    textLove.setText(dataSnapshot.getValue(Integer.class) + "");
+                }
             }
 
             @Override
@@ -758,7 +830,29 @@ private static  String idtoken;
 
             }
         };
-        dfToken.addValueEventListener(valueEventListeneToekn);
-    }}
+        dfSetLove.addValueEventListener(valueEventListenerLove);
+    }
+
+    private void pushLove(final int love) {
+        dfSetLove = mFirebaseDatabaseReference.child(USER).child(Cid).child("love");
+            dfSetLove.runTransaction(new Transaction.Handler() {
+                @Override
+                public Transaction.Result doTransaction(MutableData mutableData) {
+
+                    if (mutableData.getValue(Integer.class) == null) {
+                        mutableData.setValue(love);
+                    } else {
+                        int l = mutableData.getValue(Integer.class);
+                        mutableData.setValue(l + love);
+                    }
+                    return Transaction.success(mutableData);
+                }
+
+                @Override
+                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+
+                }
+            });
+        }
 
 }

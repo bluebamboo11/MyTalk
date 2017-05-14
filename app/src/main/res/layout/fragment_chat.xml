@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent">
 
     <ImageView
@@ -10,81 +9,88 @@
         android:layout_height="wrap_content"
         android:scaleType="center" />
 
-    <LinearLayout
-        android:id="@+id/layout_user"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        app:cardCornerRadius="@dimen/radius">
 
         <LinearLayout
-            android:layout_weight="6"
-            android:id="@+id/layout_name"
-           android:visibility="gone"
+
+            android:id="@+id/layout_user"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-           android:layout_width="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/text_name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:id="@+id/layout_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:text="Thanh tung" />
+                android:layout_weight="6"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/text_size_large" />
+
+                <ImageView
+                    android:id="@+id/img_online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_smallest"
+                    android:src="@drawable/shape_bubble_offline" />
+            </LinearLayout>
+
+            <TextView
+                android:text="0"
+                android:id="@+id/text_love"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_large"/>
 
             <ImageView
-                android:id="@+id/img_online"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-
-                android:src="@drawable/ic_offline_24dp" />
+                android:id="@+id/img_love"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:src="@drawable/ic_heart_24dp" />
         </LinearLayout>
-    <LinearLayout
-        android:id="@+id/layout_load"
-        android:layout_weight="6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content">
-        <ProgressBar
-              android:id="@+id/progressBar_load_name"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp" />
-    </LinearLayout>
-        <TextView
-            android:id="@+id/text_love"
-            android:layout_width="0dp"
+
+        <LinearLayout
+            android:id="@+id/layout_load"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="14" />
+            android:background="@color/white"
+          >
 
-        <ImageView
-            android:id="@+id/img_love"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/dis_love" />
+            <ProgressBar
+                android:id="@+id/progressBar_load_name"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp" />
+        </LinearLayout>
 
-    </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/layout_user"
-        android:background="@color/gray_dark_transparent" />
+    </android.support.v7.widget.CardView>
 
     <com.stfalcon.chatkit.messages.MessagesList
+
         android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/layout_user"
         android:layout_above="@+id/input"
+        android:layout_below="@+id/cardview"
         app:incomingBubbleDrawable="@drawable/bg_custom_incoming_message"
         app:outcomingBubbleDrawable="@drawable/bg_custom_outcoming_message"
         app:outcomingTimeTextColor="@color/gray_dark_transparent" />
@@ -98,10 +104,10 @@
         android:background="@color/gray_light" />
 
     <com.stfalcon.chatkit.messages.MessageInput
+      app:inputTextSize="@dimen/padding_nor"
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_alignParentBottom="true"
         app:inputButtonBackground="@drawable/bg_custom_layout_send"
         app:inputButtonIcon="@drawable/ic_send_selector"

@@ -20,20 +20,20 @@
 
             android:id="@id/messageText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_nor" />
 
     </LinearLayout>
 
     <TextView
-
-        android:gravity="right"
-         android:id="@id/messageTime"
+        android:id="@id/messageTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bubble"
         android:layout_alignRight="@id/bubble"
-
+        android:layout_below="@id/bubble"
+        android:gravity="right"
         android:lines="1"
-        />
+
+        android:textSize="@dimen/text_size_small" />
 
 </RelativeLayout>

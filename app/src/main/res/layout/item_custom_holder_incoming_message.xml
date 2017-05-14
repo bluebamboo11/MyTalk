@@ -25,6 +25,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:textSize="@dimen/text_size_nor"
             android:id="@id/messageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,6 +35,7 @@
     </LinearLayout>
 
     <TextView
+        android:textSize="@dimen/text_size_small"
         android:gravity="right"
         android:id="@id/messageTime"
         android:layout_width="wrap_content"

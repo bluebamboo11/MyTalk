@@ -1,4 +1,5 @@
 <resources>
+    <string name="facebook_app_id">1683153145320078</string>
     <string name="app_name">ChatKit</string>
     <string name="sample_title_default">Default design</string>
     <string name="sample_title_attrs">Styling using attributes</string>
@@ -7,18 +8,113 @@
     <string name="hint_enter_a_message">Type a message…</string>
     <string name="on_log_click_message">Your custom long click handler</string>
     <string name="action_delete">Delete</string>
-    <string name="title_activity_main2">Main2Activity</string>
-
+    <string name="disconect">Lost connection</string>
+    <string name="name">Display name</string>
+    <string name="namsinh">Year of Birth</string>
+    <string name="goitinh">sex</string>
+    <string name="ngongu">Language</string>
+    <string name="thongtin">Need to enter full information</string>
+    <string name="matketnoi">You\'ve lost connection</string>
+    <string name="keban">Adding Friends</string>
+    <string name="moikeban">Send friend request to</string>
+    <string name="taidulieu">The system is loading data. Please try again later</string>
+    <string name="chuaketnoi">You have not connected</string>
+    <string name="bimatketnoi">You lose the connection, select "OK" to make another connection</string>
+    <string name="dangxuat">Lost internet  connection, can not signout</string>
+    <string name="nhanketban">Friend Requests</string>
+    <string name="xacnhan">confirm</string>
+    <string name="huy">cancel</string>
+    <string name="SignOut">SignOut</string>
+    <string name="chonloc">Seletive</string>
+    <string name="taikhoan">Account</string>
+    <string name="xacnhanmail">Email not verified</string>
+    <string name="guimai">Verify email</string>
+    <string name="tinnhanxacnhan">You need to verify your email</string>
+    <string name="xoabanTitle">Unfriend</string>
+    <string name="xoaban">Disconnect you with</string>
+    <string name="tinnhanxoaban">Unfriend you. You can not send and receive messages.</string>
+    <string name="nhapmail">No email yet</string>
+       <string name="thongbaoxacnhan">Please verify your email address. We need you to verify your email address.An email containing verification instructions was sent to </string>
+    <string name="yes">Yes</string>
+    <string name="No">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="loiDaCoEmail">The email address is already in use by another account.</string>
+    <string name="loiEmailSai">The email address is badly formatted.</string>
+    <string name="loipass">The password is invalid.</string>
+    <string name="loikhongCoMail">There is no user record corresponding to this identifier.</string>
+    <string name="minpass">Password must be least 6 characters.</string>
+    <string name="facebooklogin">Login with Facebook</string>
+    <string name="signInGoogle">Sign in with Google</string>
+    <!--Dialog-->
+    <string name="male">Male</string>
+    <string name="Female">Female</string>
+    <string name="Lesbian">Lesbian</string>
+    <string name="Gay">Gay</string>
+    <string name="old">Old</string>
+    <string name="to">to</string>
     <string-array name="sex">
-        <item>Nam</item>
-        <item>Nu</item>
+        <item>Male</item>
+        <item>Female</item>
         <item>Lesbian</item>
         <item>Gay</item>
     </string-array>
     <string-array name="language">
-        <item>TiengViet</item>
         <item>English</item>
-        <item>France</item>
+        <item>Russian</item>
+        <item>Japanese</item>
         <item>German</item>
+        <item>Spanish</item>
+        <item>French</item>
+        <item>Portuguese</item>
+        <item>Italian</item>
+        <item>Chinese</item>
+        <item>Chinese</item>
+        <item>Polish</item>
+        <item>Turkish</item>
+        <item>Persian</item>
+        <item>Dutch,Flemish</item>
+        <item>Korean</item>
+        <item>Czech</item>
+        <item>Arabic</item>
+        <item>Vietnamese</item>
+        <item>Indonesian</item>
+        <item>Greek</item>
+        <item>Swedish</item>
+        <item>Romanian</item>
+        <item>Hungarian</item>
+        <item>Danish</item>
+        <item>Thai</item>
+        <item>Slovak</item>
+        <item>Finnish</item>
+        <item>Bulgarian</item>
+        <item>Hebrew</item>
+        <item>Lithuanian</item>
+        <item>Norwegian</item>
+        <item>Ukrainian</item>
+        <item>Croatian</item>
+        <item>Serbian</item>
+        <item>Slovenian</item>
+        <item>Latvian</item>
+        <item>Estonian</item>
+
     </string-array>
+    <string name="hint_user_id">User ID</string>
+    <string name="get_custom_token">Get Token</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="verify_email">Verify Email</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="loading">Loading…</string>
+    <string name="custom_token">Custom Token</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="token_null">Token: null</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="desc_firebase_lockup">Firebase logo and name</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="emailpassword_title_text">Email and Password</string>
+
 </resources>

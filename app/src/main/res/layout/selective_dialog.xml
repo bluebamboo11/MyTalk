@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/margin_normal"
         android:orientation="horizontal">
 
         <CheckBox
@@ -16,21 +16,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Girl" />
+            android:text="@string/male" />
 
         <CheckBox
             android:id="@+id/checkbox_boy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Boy" />
+            android:text="@string/Female" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/margin_normal"
         android:orientation="horizontal">
 
         <CheckBox
@@ -38,28 +38,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Lesbian" />
+            android:text="@string/Lesbian" />
 
         <CheckBox
             android:id="@+id/checkbox_gay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Gay" />
+            android:text="@string/Gay" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/margin_normal"
         android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/checkbox_old"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-                       android:text="Old" />
+                       android:text="@string/old" />
 
         <EditText
             android:id="@+id/edit_old_to"
@@ -73,11 +73,10 @@
 
         <TextView
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="to"
+            android:text="@string/to"
             android:textColor="@color/black"
             android:textSize="18dp" />
 
@@ -106,7 +105,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ok" />
+            android:text="@string/ok" />
 
         <Button
             android:id="@id/button_cancel"
@@ -114,6 +113,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
             android:layout_weight="1"
-            android:text="cancel" />
+            android:text="@string/cancel" />
     </LinearLayout>
 </LinearLayout>

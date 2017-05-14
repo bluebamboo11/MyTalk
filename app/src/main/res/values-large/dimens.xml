@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources> <!-- text size -->
+    <dimen name="text_size_large">30sp</dimen>
+    <dimen name="text_size_nor">25sp</dimen>
+    <dimen name="text_size_small">20sp</dimen>
+    <dimen name="text_size_smallest">16sp</dimen>
+    <dimen name="size_login">500dp</dimen>
+    <!-- margin -->
+    <dimen name="margin_large">30dp</dimen>
+    <dimen name="margin_normal">25dp</dimen>
+    <dimen name="margin_small">20dp</dimen>
+    <dimen name="margin_smallest">10dp</dimen>
+    <dimen name="love">40dp</dimen>
+</resources>

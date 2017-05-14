@@ -40,7 +40,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textFriend.setText(friends.get(0).name + "muon ket ban voi ban");
+        holder.textFriend.setText(friends.get(0).name );
 
     }
 

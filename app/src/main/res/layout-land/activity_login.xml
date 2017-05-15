@@ -4,39 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+   
     tools:context="com.example.blue.mytalk.Activity.LoginActivity">
 
     <ImageView
-
+       android:visibility="gone"
        android:layout_width="match_parent"
        android:layout_height="@dimen/size_img"
        android:background="@drawable/accout_img"/>
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/background_love"
         android:layout_marginTop="@dimen/marin_img"
         android:layout_centerHorizontal="true"
         android:layout_width="@dimen/background_love"
-        android:layout_height="@dimen/background_love"
+        android:layout_height="@dimen/background_love" 
         android:background="@drawable/ovallove">
         <TextView
-            android:textColor="@color/white"
-            android:gravity="center"
-
-            android:textSize="@dimen/text_size_large"
             android:id="@+id/text_love"
             android:layout_centerInParent="true"
             android:background="@drawable/ic_love_24dp"
             android:layout_width="@dimen/text_love"
             android:layout_height="@dimen/text_love" />
     </RelativeLayout>
-
+   
     <LinearLayout
-
+        android:layout_marginTop="@dimen/margin_large"
         android:layout_below="@id/background_love"
         android:layout_width="@dimen/size_login"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+      android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
 
@@ -129,7 +126,7 @@
         android:id="@+id/buton_save"
         android:layout_width="match_parent"
         android:layout_height="@dimen/buton_size"
-
+    
         android:text="@string/luu" />
 </FrameLayout>
 </RelativeLayout>

@@ -1,13 +1,8 @@
 package com.example.blue.mytalk.Activity;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,8 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 
 public class LoginActivity extends AppCompatActivity {
@@ -50,20 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.blue.mytalk.Activity",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
 
-        } catch (NoSuchAlgorithmException e) {
-
-        }
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         Calendar calendar = Calendar.getInstance();
         int yead = calendar.get(Calendar.YEAR);
@@ -173,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
         final TextView textLove = (TextView) findViewById(R.id.text_love);
         final SaveLoad saveLoad=new SaveLoad(LoginActivity.this);
         textLove.setText(saveLoad.loadInteger(SaveLoad.LOVE+uid,0)+"");
-        dfSetLove = mFirebaseDatabaseReference.child("User").child(uid).child("love");
+        dfSetLove = mFirebaseDatabaseReference.child("User").child(uid).child("love").child("number");
         valueEventListenerLove = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

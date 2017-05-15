@@ -12,4 +12,10 @@
     <dimen name="margin_small">10dp</dimen>
     <dimen name="margin_smallest">5dp</dimen>
     <dimen name="love">30dp</dimen>
+    <!--Account layout-->
+    <dimen name="marin_img">135dp</dimen>
+    <dimen name="size_img">180dp</dimen>
+    <dimen name="background_love">90dp</dimen>
+    <dimen name="text_love">60dp</dimen>
+    <dimen name="buton_size">45dp</dimen>
 </resources>

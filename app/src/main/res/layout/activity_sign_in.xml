@@ -4,17 +4,22 @@
     android:id="@+id/sign_in_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+
+
+  >
+
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+
         android:layout_centerInParent="true"
-        android:gravity="center_vertical"
+        android:background="#ad648148"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_normal"
         android:paddingLeft="@dimen/margin_normal"
-        android:paddingRight="@dimen/margin_normal">
+        android:paddingRight="@dimen/margin_normal"
+        android:paddingTop="@dimen/margin_normal">
 
         <LinearLayout
 
@@ -35,7 +40,7 @@
                 <Button
                     android:id="@+id/sign_in_button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/buton_size"
 
                     android:background="?attr/selectableItemBackground"
                     android:clickable="false"
@@ -48,14 +53,14 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                              android:layout_weight="1"
+                android:layout_weight="1"
                 android:background="@drawable/facebook_button">
 
                 <Button
 
                     android:id="@+id/button_facebook_login"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/buton_size"
                     android:background="?attr/selectableItemBackground"
                     android:text="@string/facebooklogin"
                     android:textAllCaps="false"
@@ -65,6 +70,7 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:id="@+id/email_password_fields"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -73,6 +79,9 @@
 
 
             <EditText
+
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:id="@+id/field_email"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -85,15 +94,17 @@
                 android:id="@+id/etPasswordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:textColorHint="@color/white"
                 app:passwordToggleEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/field_password"
+                    android:textColorHint="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Password"
+                    android:textColor="@color/white"
                     android:inputType="textPassword"
                     android:textSize="@dimen/margin_normal" />
             </android.support.design.widget.TextInputLayout>
@@ -107,9 +118,10 @@
             android:orientation="horizontal">
 
             <Button
+                android:layout_marginRight="@dimen/margin_normal"
                 android:id="@+id/email_sign_in_button"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/buton_size"
                 android:layout_weight="1"
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
@@ -118,7 +130,7 @@
             <Button
                 android:id="@+id/email_create_account_button"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/buton_size"
                 android:layout_weight="1"
                 android:text="@string/create_account"
                 android:textAllCaps="false"
@@ -131,7 +143,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
             android:gravity="center"
-            android:text="quen mat khau, doi mat khau"
+            android:text="@string/doiMatKhau"
+            android:textColor="@color/blue"
             android:textSize="@dimen/margin_normal" />
 
     </LinearLayout>

@@ -2,21 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+android:layout_margin="@dimen/margin_smallest"
     >
 
     <android.support.v7.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_smallest">
 
         <LinearLayout
+            android:background="@color/gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="5dp">
 
             <TextView
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/nhanketban"
@@ -24,12 +27,15 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="@dimen/margin_normal"
                    android:gravity="center_vertical"
                     android:id="@+id/text_addfriend"
                     android:layout_width="0dp"
@@ -42,7 +48,7 @@
                     android:textSize="@dimen/text_size_small"
                     android:id="@+id/button_ok"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/buton_size"
                     android:layout_weight="1"
                     android:text="@string/xacnhan" />
 
@@ -50,7 +56,7 @@
                     android:textSize="@dimen/text_size_small"
                     android:id="@+id/button_cancel"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/buton_size"
                     android:layout_weight="1"
                     android:text="@string/huy" />
             </LinearLayout>

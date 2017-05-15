@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.blue.mytalk.Activity.MainActivity;
 import com.example.blue.mytalk.Database.DatabaseManager;
 import com.example.blue.mytalk.DoiTuong.Chat;
 import com.example.blue.mytalk.DoiTuong.DefaultUser;
@@ -59,6 +59,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import static com.example.blue.mytalk.Activity.MainActivity.connected;
 import static com.example.blue.mytalk.R.drawable.ic_heart_24dp;
 import static com.example.blue.mytalk.R.drawable.ic_love_24dp;
 
@@ -97,10 +98,9 @@ public class ChatFragment extends Fragment {
     private static boolean Checkconnect;
     private TextView textname;
     private LinearLayout linearLayoutLoad;
-    private LinearLayout linearLayoutName;
+
     private static LinearLayout linearLayoutUser;
     private ImageView imageViewOline;
-    private String name;
     private DatabaseReference dfSetOnline;
     private DatabaseReference dfConnect;
     private static DatabaseReference dfNofriend;
@@ -114,7 +114,10 @@ public class ChatFragment extends Fragment {
     private TextView textLove;
     private ImageView imgLove;
     private static String idtoken;
-    private int love;
+    private boolean love;
+    private  static CardView cardView;
+    private DatabaseReference dfUserLove;
+    private ValueEventListener valueEventListenerIglove;
 
     public ChatFragment() {
 
@@ -124,9 +127,7 @@ public class ChatFragment extends Fragment {
         return Checkconnect;
     }
 
-    public static void setCheckconnect(boolean checkconnect) {
-        Checkconnect = checkconnect;
-    }
+
 
     public static void setCid(String cid) {
         Cid = cid;
@@ -145,9 +146,9 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         textname = (TextView) view.findViewById(R.id.text_name);
-
+        cardView = (CardView) view.findViewById(R.id.cardview);
         linearLayoutLoad = (LinearLayout) view.findViewById(R.id.layout_load);
-        linearLayoutName = (LinearLayout) view.findViewById(R.id.layout_name);
+
         linearLayoutUser = (LinearLayout) view.findViewById(R.id.layout_user);
         textLove = (TextView) view.findViewById(R.id.text_love);
         imgLove = (ImageView) view.findViewById(R.id.img_love);
@@ -174,7 +175,7 @@ public class ChatFragment extends Fragment {
         MessageInput input = (MessageInput) view.findViewById(R.id.input);
         if (logic && Cid != null) {
             logic = false;
-            ArrayList<Message> messageF = databaseManager.getAllMessages(Cid, uid,false);
+            ArrayList<Message> messageF = databaseManager.getAllMessages(Cid, uid, false);
             for (Message message : messageF) {
                 sentMessage(message);
             }
@@ -189,7 +190,7 @@ public class ChatFragment extends Fragment {
                     calendar.add(Calendar.DAY_OF_MONTH, -1);
                     final Message message = new Message(intId++, input.toString(), defaultUser, calendar.getTime());
                     message.setSent(false);
-                    databaseManager.setMessages(message ,Cid,uid);
+                    databaseManager.setMessages(message, Cid, uid);
                     adapter.addToStart(message, true);
                     sentMessage(message);
                     return true;
@@ -268,7 +269,7 @@ public class ChatFragment extends Fragment {
                                         }
                                         mFirebaseDatabaseReference.child(lau).child(uid).removeValue();
                                         try {
-                                            databaseManager.creatTab(uid,Cid);
+                                            databaseManager.creatTab(uid, Cid);
                                         } catch (Exception ignored) {
 
                                         }
@@ -323,7 +324,7 @@ public class ChatFragment extends Fragment {
                 }
 
                 mFirebaseDatabaseReference.child(lau).child(uid).removeValue();
-                linearLayoutUser.setVisibility(View.GONE);
+                cardView.setVisibility(View.GONE);
 
             }
         } else {
@@ -445,7 +446,7 @@ public class ChatFragment extends Fragment {
                 message.setSent(true);
                 message.setDate(calendar.getTime());
                 adapter.update(message);
-                databaseManager.updateMessages(message, Cid,uid);
+                databaseManager.updateMessages(message, Cid, uid);
             }
         });
     }
@@ -584,14 +585,15 @@ public class ChatFragment extends Fragment {
 
     private void setName(String name) {
         textname.setText(name);
+        cardView.setVisibility(View.VISIBLE);
         linearLayoutUser.setVisibility(View.VISIBLE);
-        linearLayoutName.setVisibility(View.VISIBLE);
+
         linearLayoutLoad.setVisibility(View.GONE);
     }
 
     private void loadName() {
-        linearLayoutUser.setVisibility(View.VISIBLE);
-        linearLayoutName.setVisibility(View.GONE);
+        linearLayoutUser.setVisibility(View.GONE);
+        cardView.setVisibility(View.VISIBLE);
         linearLayoutLoad.setVisibility(View.VISIBLE);
     }
 
@@ -633,7 +635,9 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-
+        if (dfUserLove != null) {
+            dfUserLove.removeEventListener(valueEventListenerIglove);
+        }
         if (childEventListener != null && refMessages != null) {
             refMessages.removeEventListener(childEventListener);
         }
@@ -662,12 +666,12 @@ public class ChatFragment extends Fragment {
     private void initFirtData() {
         if (Cid != null) {
 
-            name = saveLoad.loadString(SaveLoad.C_NAME + uid, "");
+            String name = saveLoad.loadString(SaveLoad.C_NAME + uid, "");
             setName(name);
             try {
                 messages = databaseManager.getAllMessages(Cid, uid);
-            }catch (Exception ignored){
-                databaseManager.creatTab(Cid,uid);
+            } catch (Exception ignored) {
+                databaseManager.creatTab(Cid, uid);
                 messages = databaseManager.getAllMessages(Cid, uid);
             }
             boolean online = saveLoad.loadBoolean(SaveLoad.ONLINE + uid, false);
@@ -689,7 +693,7 @@ public class ChatFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String id = dataSnapshot.getValue(String.class);
                 try {
-                    databaseManager.setNoFriend(id,uid);
+                    databaseManager.setNoFriend(id, uid);
                     noFriendArrayList.add(id);
                 } catch (Exception ignored) {
 
@@ -785,25 +789,23 @@ public class ChatFragment extends Fragment {
 
     private void setupLove() {
 
-        love = saveLoad.loadInteger(SaveLoad.LOVE + Cid, DefaultUser.NO_LOVE);
-        if (love == DefaultUser.LOVE) {
+        love = saveLoad.loadBoolean(SaveLoad.LOVE + Cid + uid, false);
+        if (love) {
             imgLove.setImageResource(ic_love_24dp);
         } else {
             imgLove.setImageResource(ic_heart_24dp);
         }
+        int lo = saveLoad.loadInteger(SaveLoad.LOVE + uid + Cid, 0);
+        textLove.setText(lo + "");
         imgLove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Cid != null && MainActivity.connected) {
-                    if (love == DefaultUser.LOVE) {
-                        love = DefaultUser.NO_LOVE;
-                        saveLoad.saveInteger(SaveLoad.LOVE + Cid, DefaultUser.NO_LOVE);
-                        imgLove.setImageResource(ic_heart_24dp);
+                if (Cid != null && connected&&dfUserLove!=null) {
+                    if (love) {
+                        dfUserLove.removeValue();
                         pushLove(-1);
                     } else {
-                        love = DefaultUser.LOVE;
-                        saveLoad.saveInteger(SaveLoad.LOVE + Cid, DefaultUser.LOVE);
-                        imgLove.setImageResource(ic_love_24dp);
+                        dfUserLove.setValue("o");
                         pushLove(1);
                     }
                 } else {
@@ -816,12 +818,33 @@ public class ChatFragment extends Fragment {
 
     private void setLove() {
 
-        dfSetLove = mFirebaseDatabaseReference.child(USER).child(Cid).child("love");
+        dfSetLove = mFirebaseDatabaseReference.child(USER).child(Cid).child("love").child("number");
+         dfUserLove=mFirebaseDatabaseReference.child(USER).child(Cid).child("love").child(uid);
+        valueEventListenerIglove = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    love = false;
+                    imgLove.setImageResource(ic_heart_24dp);
+                } else {
+                    love = true;
+                    imgLove.setImageResource(ic_love_24dp);
+                }
+                saveLoad.seveBoolean(SaveLoad.LOVE + Cid + uid, love);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
         valueEventListenerLove = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
-                    textLove.setText(dataSnapshot.getValue(Integer.class) + "");
+                    int lo=dataSnapshot.getValue(Integer.class);
+                    saveLoad.saveInteger(SaveLoad.LOVE+uid+Cid,lo );
+                    textLove.setText(lo + "");
                 }
             }
 
@@ -830,29 +853,31 @@ public class ChatFragment extends Fragment {
 
             }
         };
+        dfUserLove.addValueEventListener(valueEventListenerIglove);
         dfSetLove.addValueEventListener(valueEventListenerLove);
     }
 
     private void pushLove(final int love) {
-        dfSetLove = mFirebaseDatabaseReference.child(USER).child(Cid).child("love");
-            dfSetLove.runTransaction(new Transaction.Handler() {
-                @Override
-                public Transaction.Result doTransaction(MutableData mutableData) {
+        dfSetLove = mFirebaseDatabaseReference.child(USER).child(Cid).child("love").child("number");
 
-                    if (mutableData.getValue(Integer.class) == null) {
-                        mutableData.setValue(love);
-                    } else {
-                        int l = mutableData.getValue(Integer.class);
-                        mutableData.setValue(l + love);
-                    }
-                    return Transaction.success(mutableData);
+        dfSetLove.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+
+                if (mutableData.getValue(Integer.class) == null) {
+                    mutableData.setValue(love);
+                } else {
+                    int l = mutableData.getValue(Integer.class);
+                    mutableData.setValue(l + love);
                 }
+                return Transaction.success(mutableData);
+            }
 
-                @Override
-                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
 
-                }
-            });
-        }
+            }
+        });
+    }
 
 }

@@ -8,10 +8,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="center" />
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardview"
+    <TextView
+        android:textSize="@dimen/text_size_nor"
+        android:id="@+id/text_connect"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/vang"
+        android:gravity="center"
+        android:text="@string/disconect"
+        android:visibility="gone"
+         />
+    <android.support.v7.widget.CardView
+        android:layout_below="@id/text_connect"
+       android:layout_margin="@dimen/margin_smallest"
+        android:id="@+id/cardview"
+         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/radius">
 

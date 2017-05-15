@@ -8,7 +8,8 @@
     <string name="hint_enter_a_message">Type a message…</string>
     <string name="on_log_click_message">Your custom long click handler</string>
     <string name="action_delete">Delete</string>
-    <string name="disconect">Lost connection</string>
+    <string name="disconect">Lost internet connection</string>
+    <string name="disconect_user">Lost connection</string>
     <string name="name">Display name</string>
     <string name="namsinh">Year of Birth</string>
     <string name="goitinh">sex</string>
@@ -46,6 +47,11 @@
     <string name="minpass">Password must be least 6 characters.</string>
     <string name="facebooklogin">Login with Facebook</string>
     <string name="signInGoogle">Sign in with Google</string>
+    <string name="Required">Required</string>
+    <string name="doiMatKhau">Forget password, change password.</string>
+    <string name="luu">SAVE</string>
+<string name="doimatkhau_title">Password Reset</string>
+<string name="doimatkhau">Select "OK", An email containing the reset password instructions will be sent to</string>
     <!--Dialog-->
     <string name="male">Male</string>
     <string name="Female">Female</string>
@@ -116,5 +122,16 @@
     <string name="auth_failed">Authentication failed</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="emailpassword_title_text">Email and Password</string>
+<!--weather-->
+    <string name="nang">Clear</string>
+    <string name="may">Cloudy</string>
+    <string name="suongmu">Foggy</string>
+    <string name="bongdam">Hazy</string>
+    <string name="dongbang">Icy</string>
+    <string name="mua">Rainy</string>
+    <string name="muatuyet">Snowy</string>
+    <string name="bao">Stormy</string>
+    <string name="giolon">Windy</string>
+    <string name="khongxacdinh">Unknown</string>
 
 </resources>

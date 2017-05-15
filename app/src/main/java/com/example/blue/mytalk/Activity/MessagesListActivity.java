@@ -88,8 +88,13 @@ public class MessagesListActivity extends AppCompatActivity {
     private static boolean connected;
     private boolean connect = true;
     private DatabaseReference connectedRef;
-   private ValueEventListener valueEventListenerConnect;
-    private int love;
+    private ValueEventListener valueEventListenerConnect;
+    private ValueEventListener valueEventListenerIglove;
+    private DatabaseReference dfUserLove;
+    private boolean love;
+    private ImageView imgLove;
+    private   TextView textLove;
+    private SaveLoad saveLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,15 +104,15 @@ public class MessagesListActivity extends AppCompatActivity {
         Cid = getIntent().getStringExtra("id");
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
-        SaveLoad saveLoad=new SaveLoad(this);
-        uid=saveLoad.loadString(SaveLoad.UID,null);
+        saveLoad = new SaveLoad(this);
+        uid = saveLoad.loadString(SaveLoad.UID, null);
         assert user != null;
         uid = user.getUid();
 
         getIdToken();
         refMessages = mFirebaseDatabaseReference.child(USER).child(uid).child("message");
         databaseManager = new DatabaseManager(this);
-        databaseManager.updateUser(Cid,uid, 0);
+        databaseManager.updateUser(Cid, uid, 0);
         messagesList = (MessagesList) findViewById(R.id.messagesList);
         initMessagesAdapter();
         getMessage();
@@ -129,7 +134,7 @@ public class MessagesListActivity extends AppCompatActivity {
                     calendar.add(Calendar.DAY_OF_MONTH, -1);
                     final Message message = new Message(intId++, input.toString(), defaultUser, calendar.getTime());
                     message.setSent(false);
-                    databaseManager.setMessages(message, Cid,uid);
+                    databaseManager.setMessages(message, Cid, uid);
                     adapter.addToStart(message, true);
                     sentMessage(message);
                     return true;
@@ -161,9 +166,10 @@ public class MessagesListActivity extends AppCompatActivity {
     }
 
     private void setupUser() {
+          textLove = (TextView) findViewById(R.id.text_love);
         TextView textName = (TextView) findViewById(R.id.text_name);
-        final ImageView imgLove = (ImageView) findViewById(R.id.img_love);
-        final DefaultUser defaultUser = databaseManager.getUser(Cid,uid);
+        imgLove = (ImageView) findViewById(R.id.img_love);
+        final DefaultUser defaultUser = databaseManager.getUser(Cid, uid);
         textName.setText(defaultUser.getName());
         LinearLayout linearLayoutLoad = (LinearLayout) findViewById(R.id.layout_load);
         linearLayoutLoad.setVisibility(View.GONE);
@@ -173,27 +179,23 @@ public class MessagesListActivity extends AppCompatActivity {
         } else {
             imageViewOnline.setImageResource(R.drawable.shape_bubble_offline);
         }
-        final SaveLoad saveLoad=new SaveLoad(this);
-       love = saveLoad.loadInteger(SaveLoad.LOVE + Cid, DefaultUser.NO_LOVE);
-        if (love== DefaultUser.LOVE) {
-            imgLove.setImageResource(ic_love_24dp);
-        } else {
-            imgLove.setImageResource(ic_heart_24dp);
+        love = saveLoad.loadBoolean(SaveLoad.LOVE + Cid + uid, false);
+        if(love){
+            imgLove.setImageResource(R.drawable.ic_love_24dp);
+        }else {
+            imgLove.setImageResource(R.drawable.ic_heart_24dp);
         }
-
+         int lo =saveLoad.loadInteger(SaveLoad.LOVE+uid+Cid,0 );
+        textLove.setText(lo + "");
         imgLove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Cid != null && MainActivity.connected) {
-                    if (love == DefaultUser.LOVE) {
-                        love=DefaultUser.NO_LOVE;
-                        saveLoad.saveInteger(SaveLoad.LOVE + Cid, DefaultUser.NO_LOVE);
-                        imgLove.setImageResource(ic_heart_24dp);
+                if (Cid != null && connected&&dfUserLove!=null) {
+                    if (love) {
+                        dfUserLove.removeValue();
                         pushLove(-1);
                     } else {
-                        love=DefaultUser.LOVE;
-                        saveLoad.saveInteger(SaveLoad.LOVE + Cid, DefaultUser.LOVE);
-                        imgLove.setImageResource(ic_love_24dp);
+                        dfUserLove.setValue("o");
                         pushLove(1);
                     }
                 } else {
@@ -204,9 +206,7 @@ public class MessagesListActivity extends AppCompatActivity {
 
 
     }
-    private void setupLove() {
 
-    }
     private void initMessagesAdapter() {
         ImageLoader imageLoader = new ImageLoader() {
             @Override
@@ -214,7 +214,7 @@ public class MessagesListActivity extends AppCompatActivity {
                 Picasso.with(MessagesListActivity.this).load(url).into(imageView);
             }
         };
-        messages = databaseManager.getAllMessages(Cid,uid);
+        messages = databaseManager.getAllMessages(Cid, uid);
         MessagesListAdapter.HoldersConfig holdersConfig = new MessagesListAdapter.HoldersConfig();
         holdersConfig.setIncoming(CustomIncomingMessageViewHolder.class, R.layout.item_custom_holder_incoming_message);
         holdersConfig.setOutcoming(CustomOutcomingMessageViewHolder.class, R.layout.item_custom_holder_outcoming_message);
@@ -275,16 +275,16 @@ public class MessagesListActivity extends AppCompatActivity {
                     intId++;
                     if (messageFireBase.id.equals(Cid) || messageFireBase.id.equals(idconect)) {
                         adapter.addToStart(message, true);
-                        databaseManager.setMessages(message, messageFireBase.id,uid);
+                        databaseManager.setMessages(message, messageFireBase.id, uid);
                         if (message.getText().equals(FriendsFragment.PASS)) {
                             connect = false;
                         }
 
                     } else {
 
-                        databaseManager.setMessages(message, messageFireBase.id,uid);
-                        int sl = databaseManager.getUser(messageFireBase.id,uid).getCount();
-                        databaseManager.updateUser(messageFireBase.id, uid,sl + 1);
+                        databaseManager.setMessages(message, messageFireBase.id, uid);
+                        int sl = databaseManager.getUser(messageFireBase.id, uid).getCount();
+                        databaseManager.updateUser(messageFireBase.id, uid, sl + 1);
                     }
                 }
 
@@ -326,7 +326,7 @@ public class MessagesListActivity extends AppCompatActivity {
                 message.setSent(true);
                 message.setDate(calendar.getTime());
                 adapter.update(message);
-                databaseManager.updateMessages(message, Cid,uid);
+                databaseManager.updateMessages(message, Cid, uid);
             }
         });
     }
@@ -391,6 +391,8 @@ public class MessagesListActivity extends AppCompatActivity {
         connectedRef.addValueEventListener(valueEventListenerConnect);
         dfToken.addValueEventListener(valueEventListeneToekn);
         refMessages.addChildEventListener(childEventListener);
+
+        dfUserLove.addValueEventListener(valueEventListenerIglove);
         dfSetLove.addValueEventListener(valueEventListenerLove);
     }
 
@@ -400,6 +402,8 @@ public class MessagesListActivity extends AppCompatActivity {
         dfSetOnline.removeEventListener(valueEventListenerOnline);
         connectedRef.removeEventListener(valueEventListenerConnect);
         dfSetLove.removeEventListener(valueEventListenerLove);
+        dfUserLove.removeEventListener(valueEventListenerIglove);
+
         if (dfToken != null) {
             dfToken.removeEventListener(valueEventListeneToekn);
         }
@@ -407,7 +411,7 @@ public class MessagesListActivity extends AppCompatActivity {
     }
 
     private void openDialogDelete(final String iduser) {
-        DefaultUser defaultUser = databaseManager.getUser(iduser,uid);
+        DefaultUser defaultUser = databaseManager.getUser(iduser, uid);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
@@ -441,7 +445,7 @@ public class MessagesListActivity extends AppCompatActivity {
                                         dfMessages.removeValue(new DatabaseReference.CompletionListener() {
                                             @Override
                                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                                databaseManager.deleteUser(iduser,uid);
+                                                databaseManager.deleteUser(iduser, uid);
                                                 FriendsFragment.dialogsListAdapter.deleteById(iduser);
                                                 finish();
                                             }
@@ -464,7 +468,12 @@ public class MessagesListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 connected = snapshot.getValue(Boolean.class);
+                if (connected) {
+                    textView.setVisibility(View.GONE);
+                } else {
 
+                    textView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -505,13 +514,34 @@ public class MessagesListActivity extends AppCompatActivity {
     }
 
     private void setLove() {
-        final TextView textLove = (TextView) findViewById(R.id.text_love);
-        dfSetLove = mFirebaseDatabaseReference.child(USER).child(Cid).child("love");
+
+        dfSetLove = mFirebaseDatabaseReference.child(USER).child(Cid).child("love").child("number");
+        dfUserLove=mFirebaseDatabaseReference.child(USER).child(Cid).child("love").child(uid);
+        valueEventListenerIglove = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    love = false;
+                    imgLove.setImageResource(ic_heart_24dp);
+                } else {
+                    love = true;
+                    imgLove.setImageResource(ic_love_24dp);
+                }
+                saveLoad.seveBoolean(SaveLoad.LOVE + Cid + uid, love);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
         valueEventListenerLove = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
-                    textLove.setText(dataSnapshot.getValue(Integer.class)+"");
+                    int lo=dataSnapshot.getValue(Integer.class);
+                    saveLoad.saveInteger(SaveLoad.LOVE+uid+Cid,lo );
+                    textLove.setText(lo + "");
                 }
             }
 
@@ -520,6 +550,7 @@ public class MessagesListActivity extends AppCompatActivity {
 
             }
         };
+
     }
 
     private void pushLove(final int love) {
@@ -527,11 +558,11 @@ public class MessagesListActivity extends AppCompatActivity {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
 
-                if (mutableData.getValue(Integer.class)==null){
+                if (mutableData.getValue(Integer.class) == null) {
                     mutableData.setValue(love);
-                }else {
-                    int l=mutableData.getValue(Integer.class);
-                    mutableData.setValue(l+love);
+                } else {
+                    int l = mutableData.getValue(Integer.class);
+                    mutableData.setValue(l + love);
                 }
                 return Transaction.success(mutableData);
             }

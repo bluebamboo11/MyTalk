@@ -1,13 +1,17 @@
 package com.example.blue.mytalk.Activity;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,8 +29,11 @@ import com.example.blue.mytalk.SaveLoad;
 import com.example.blue.mytalk.SelectiveDialog;
 import com.example.blue.mytalk.SignInActivity;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.awareness.Awareness;
+import com.google.android.gms.awareness.snapshot.WeatherResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -85,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApiIfAvailable(Awareness.API)
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -112,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         checkConnect();
+        getWeather();
     }
 
     private void setupTablayout() {
@@ -217,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.item_add_friend:
                 if (connected) {
-                String name = saveLoad.loadString(SaveLoad.C_NAME+uid, "");
-                openDialogAddFriend(getResources().getString(R.string.keban), getResources().getString(R.string.moikeban) + name);
+                    String name = saveLoad.loadString(SaveLoad.C_NAME + uid, "");
+                    openDialogAddFriend(getResources().getString(R.string.keban), getResources().getString(R.string.moikeban) + name);
                 } else {
                     Toast.makeText(this, R.string.disconect, Toast.LENGTH_SHORT).show();
                 }
@@ -286,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MainActivity.this);
 
-        alertDialogBuilder.setTitle(R.string.disconect);
+        alertDialogBuilder.setTitle(R.string.disconect_user);
 
         alertDialogBuilder
                 .setMessage(R.string.matketnoi)
@@ -443,7 +452,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 MainActivity.this);
 
-        alertDialogBuilder.setTitle(R.string.disconect);
+        alertDialogBuilder.setTitle(R.string.disconect_user);
 
         alertDialogBuilder
                 .setMessage(R.string.bimatketnoi)
@@ -538,5 +547,31 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, R.string.dangxuat, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void getWeather() {
+        if (ContextCompat.checkSelfPermission(
+                MainActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    101
+            );
+            return;
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        Awareness.SnapshotApi.getWeather(mGoogleApiClient).setResultCallback(new ResultCallback<WeatherResult>() {
+            @Override
+            public void onResult(@NonNull WeatherResult weatherResult) {
+          int[]i=  weatherResult.getWeather().getConditions();
+
+            }
+        });
     }
 }

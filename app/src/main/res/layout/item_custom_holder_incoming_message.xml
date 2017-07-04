@@ -35,6 +35,7 @@
     </LinearLayout>
 
     <TextView
+        android:textColor="@color/black"
         android:textSize="@dimen/text_size_small"
         android:gravity="right"
         android:id="@id/messageTime"

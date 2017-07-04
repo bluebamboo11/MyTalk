@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1683153145320078</string>
+    <string name="app_name">Lifechat</string>
+    <string name="sample_title_default">Default design</string>
+    <string name="sample_title_attrs">Styling using attributes</string>
+    <string name="sample_title_layout">Custom layout</string>
+    <string name="sample_title_holder">Custom view holder</string>
+    <string name="hint_enter_a_message">Viết một tin nhắn…</string>
+    <string name="on_log_click_message">Your custom long click handler</string>
+    <string name="action_delete">Xóa</string>
+    <string name="disconect">Không có kết nối internet</string>
+    <string name="disconect_user">Mất kết nối </string>
+    <string name="disconect_title">Mất kết nối</string>
+    <string name="name">Tên hiển thị </string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="namsinh">Năm sinh</string>
+    <string name="goitinh">Giới tính</string>
+    <string name="ngongu">Ngôn ngữ </string>
+    <string name="thongtin">Cần nhập thông tin đầy đủ</string>
+    <string name="matketnoi">Bạn muốn ngắt kết nối</string>
+    <string name="keban">Thêm bạn bè</string>
+    <string name="moikeban">Gửi yêu cầu kết bạn tới</string>
+    <string name="taidulieu">Hệ thống đang tải dữ liệu. Vui lòng thử lại sau</string>
+    <string name="chuaketnoi">Bạn chưa kết nối</string>
+    <string name="bimatketnoi">Bạn mất kết nối, chọn "OK" để thực hiện kết nối khác</string>
+    <string name="dangxuat">Không có kết nối internet, không thể đăng xuất</string>
+    <string name="nhanketban">Lời mời kết bạn</string>
+    <string name="xacnhan">xác nhận</string>
+    <string name="huy">Hủy bỏ</string>
+    <string name="SignOut">Đăng xuất</string>
+    <string name="chonloc">Chọn lọc</string>
+    <string name="taikhoan">Cá nhân</string>
+    <string name="xacnhanmail">Email chưa được xác minh</string>
+    <string name="guimai">Xác nhận Email</string>
+    <string name="tinnhanxacnhan">Bạn cần xác minh email của mình</string>
+    <string name="xoabanTitle">Hủy kết bạn</string>
+    <string name="xoaban">Ngắt kết nối bạn với</string>
+    <string name="tinnhanxoaban">Đối phương đã hủy kết bạn với bạn. Bạn không thể gửi và nhận tin nhắn.</string>
+    <string name="nhapmail">Chưa có email nào</string>
+    <string name="thongbaoxacnhan">Vui lòng xác nhận địa chỉ email. Chúng tôi cần bạn xác minh địa chỉ email của bạn. Một email chứa hướng dẫn xác minh đã được gửi đến </string>
+    <string name="yes">Được</string>
+    <string name="No">Không</string>
+    <string name="cancel">Hủy</string>
+    <string name="ok">Đồng ý</string>
+    <string name="loiDaCoEmail">Địa chỉ email đã được sử dụng bởi một tài khoản khác.</string>
+    <string name="loiEmailSai">Địa chỉ email bị định dạng sai.</string>
+    <string name="loipass">Mật khẩu không hợp lệ.</string>
+    <string name="loikhongCoMail">Không có hồ sơ người dùng nào tương ứng với email này.</string>
+    <string name="minpass">Mật khẩu phải có ít nhất 6 ký tự.</string>
+    <string name="facebooklogin">Đăng nhập Facebook</string>
+    <string name="signInGoogle">Đăng nhập Google</string>
+    <string name="Required">Trường bắt buộc</string>
+    <string name="doiMatKhau">Quên mật khẩu, thay đổi mật khẩu.</string>
+    <string name="luu">LƯU</string>
+    <string name="banbe">Bạn bè</string>
+    <string name="chat">Trò chuyện</string>
+    <string name="sign_out_message">Bạn muốn đăng xuất</string>
+    <string name="nen_trang">Hình nền: trắng</string>
+    <string name="nen_thoitiet">Hình nền: thời tiết</string>
+    <string name="dieukhoan">Bằng cách nhấp vào Tạo tài khoản, bạn đồng ý với Điều khoản dịch vụ và chính sách bảo mật  </string>
+    <string name="doimatkhau_title">Đặt lại mật khẩu</string>
+    <string name="doimatkhau">Chọn "Đồng ý", Một email chứa hướng dẫn đặt lại mật khẩu sẽ được gửi đến</string>
+    <!--Dialog-->
+    <string name="male">Nam</string>
+    <string name="Female">Nữ</string>
+    <string name="Lesbian">Lesbian</string>
+    <string name="Gay">Gay</string>
+    <string name="old">Tuổi</string>
+    <string name="to">đến</string>
+    <string-array name="sex">
+        <item>Nam</item>
+        <item>Nữ</item>
+        <item>Lesbian</item>
+        <item>Gay</item>
+    </string-array>
+    <string-array name="language">
+        <item>English</item>
+        <item>Русский</item>
+        <item>日本語</item>
+        <item>Deutsch</item>
+        <item>Español (España)</item>
+        <item>Français (France)</item>
+        <item>Português (Portugal)</item>
+        <item>Italiano</item>
+        <item>中文(简体)</item>
+        <item>中文(香港)</item>
+       <item>中文(台灣)</item>
+        <item>Polski</item>
+        <item>Türkçe</item>
+        <item>فارسی‏</item>
+        <item>Nederlands</item>
+        <item>한국어</item>
+        <item>Čeština</item>
+        <item>العربية‏</item>
+        <item>Tiếng Việt</item>
+        <item>Bahasa Indonesia</item>
+        <item>Ελληνικά</item>
+        <item>Svenska</item>
+        <item>Română</item>
+        <item>Magyar</item>
+        <item>Dansk</item>
+        <item>हिन्दी</item>
+        <item>ภาษาไทย</item>
+        <item>Slovenčina</item>
+        <item>Suomi</item>
+        <item>Български</item>
+        <item>עברית‏</item>
+        <item>Latviešu</item>
+        <item>Norsk </item>
+        <item>Українська</item>
+        <item>Hrvatski</item>
+        <item>Српски</item>
+        <item>Slovenščina</item>
+        <item>Latviešu</item>
+        <item>Eesti</item>
+
+
+    </string-array>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="create_account">Tạo tài khoản</string>
+    <string name="sign_out">Đăng xuất</string>
+    <string name="verify_email">Xác nhận Email</string>
+    <string name="disconnect">Ngắt kết nối</string>
+    <string name="loading">Đang tải…</string>
+   <string name="loi_gui_mail">Không gửi được email xác nhận.</string>
+   <string name="gui_mail">email xác nhận đã gửi tới </string>
+   <string name="tin_ung_ho">click quảng cáo là bạn đã ủng hộ tôi  </string>
+    <string name="ung_ho">Ủng hộ</string>
+    <string name="tang">Cảm ơn, tặng bạn một trái tim </string>
+    <string name="auth_failed">Quá trình xác thực đã thất bại</string>
+    <string name="max_messager">Tin nhắn văn bản dài tối đa 600 ký tự</string>
+    <!--weather-->
+    <string name="nang">Clear</string>
+    <string name="may">Cloudy</string>
+    <string name="suongmu">Foggy</string>
+    <string name="bongdam">Hazy</string>
+    <string name="dongbang">Icy</string>
+    <string name="mua">Rainy</string>
+    <string name="muatuyet">Snowy</string>
+    <string name="bao">Stormy</string>
+    <string name="giolon">Windy</string>
+    <string name="khongxacdinh">Unknown</string>
+    <string name="ngat_ket_noi">Ngắt kết nối</string>
+    <string name="ket_noi">kết nối</string>
+    <string name="huong_dan">Hướng dẫn</string>
+
+
+</resources>
+

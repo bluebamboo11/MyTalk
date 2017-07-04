@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
    
-    tools:context="com.example.blue.mytalk.Activity.LoginActivity">
+    tools:context="com.bamboo.blue.LifeChat.Activity.LoginActivity">
 
     <ImageView
        android:visibility="gone"
@@ -38,8 +38,11 @@
 
 
         <EditText
+            android:inputType="textPersonName"
+            android:lines="1"
+            android:maxLines="1"
             android:textSize="@dimen/text_size_large"
-            android:maxLength="20"
+            android:maxLength="12"
             android:id="@+id/text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

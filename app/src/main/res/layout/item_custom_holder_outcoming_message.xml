@@ -26,6 +26,7 @@
     </LinearLayout>
 
     <TextView
+        android:textColor="@color/black"
         android:id="@id/messageTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

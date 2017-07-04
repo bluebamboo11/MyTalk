@@ -15,11 +15,63 @@
       },
       "oauth_client": [
         {
+          "client_id": "216231604079-6qsqabvi1m3tknbeov1un832b5dsvh9b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.blue.mytalk",
+            "certificate_hash": "729951d319b14f57dd531994a558f4459ab11582"
+          }
+        },
+        {
           "client_id": "216231604079-8rlb2hvltr5eqaq52bt3kc4eauf6u1oe.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.blue.mytalk",
             "certificate_hash": "31c214b749a581bb9076cf9951878bee44886626"
+          }
+        },
+        {
+          "client_id": "216231604079-3mgh5egghm481tkltpgmsrfbjrpa31ft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl0slBeQM3Rk5efFQN9PWZjpLR5KKoYiA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216231604079-3mgh5egghm481tkltpgmsrfbjrpa31ft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216231604079:android:95d956ff7783295e",
+        "android_client_info": {
+          "package_name": "com.bamboo.blue.LifeChat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216231604079-md4bmplbnjgctku2630fkrvhbsatf8rn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bamboo.blue.LifeChat",
+            "certificate_hash": "014e5ca004c0b2e09bbf9677160dc193e617dca3"
           }
         },
         {

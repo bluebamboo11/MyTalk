@@ -16,14 +16,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/male" />
-
+            android:text="@string/male"
+            android:textSize="@dimen/text_size_nor" />
         <CheckBox
-            android:id="@+id/checkbox_boy"
+            android:id="@+id/checkbox_les"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Female" />
+            android:layout_weight="1.5"
+            android:text="@string/Lesbian"
+            android:textSize="@dimen/text_size_nor" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -33,22 +35,25 @@
         android:layout_marginBottom="@dimen/margin_normal"
         android:orientation="horizontal">
 
+
         <CheckBox
-            android:id="@+id/checkbox_les"
+            android:id="@+id/checkbox_boy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Lesbian" />
-
+            android:text="@string/Female"
+            android:textSize="@dimen/text_size_nor" />
         <CheckBox
             android:id="@+id/checkbox_gay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Gay" />
+            android:layout_weight="1.5"
+            android:text="@string/Gay"
+            android:textSize="@dimen/text_size_nor" />
     </LinearLayout>
 
     <LinearLayout
+
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
@@ -57,62 +62,78 @@
 
         <CheckBox
             android:id="@+id/checkbox_old"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-                       android:text="@string/old" />
-
-        <EditText
-            android:id="@+id/edit_old_to"
-            android:inputType="number"
             android:layout_gravity="center"
-            android:maxLength="2"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_width="40dp"
+            android:layout_weight="1"
+            android:text="@string/old"
+            android:textSize="@dimen/text_size_nor" />
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            />
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
+            <EditText
 
-        <EditText
-            android:id="@+id/edit_old_from"
-            android:inputType="number"
-            android:layout_gravity="center"
-            android:maxLength="2"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:id="@+id/edit_old_to"
+                android:layout_width="@dimen/buton_size"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:gravity="center"
+                android:inputType="number|textPersonName"
 
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+                android:maxLength="2"
+                android:textSize="@dimen/text_size_large" />
 
-            />
+           <ImageView
+               android:layout_marginLeft="@dimen/activity_horizontal_margin"
+               android:layout_gravity="center"
+               android:layout_width="@dimen/love"
+               android:layout_height="@dimen/love"
+               android:background="@drawable/ic_play_arrow_black_24dp"/>
+
+            <EditText
+                android:gravity="center"
+
+                android:id="@+id/edit_old_from"
+                android:layout_width="@dimen/buton_size"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:inputType="number|textPersonName"
+
+                android:maxLength="2"
+                android:textSize="@dimen/text_size_large"
+
+                />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/margin_smallest"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_ok"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/buton_size"
             android:layout_weight="1"
-            android:text="@string/ok" />
+            android:text="@string/ok"
+            android:textSize="@dimen/text_size_nor" />
 
         <Button
             android:id="@id/button_cancel"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/buton_size"
             android:layout_marginLeft="45dp"
             android:layout_weight="1"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textSize="@dimen/text_size_nor" />
     </LinearLayout>
 </LinearLayout>

@@ -1,32 +1,44 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.blue.mytalk.Activity.MainActivity">
-    <item android:id="@+id/item_disconnect"
-        android:title="disconnect"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_disconnect_24dp"
-        />
-    <item android:id="@+id/item_add_friend"
-        android:title="add Friend"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_person_add_black_24dp"
-        />
+    tools:context="com.bamboo.blue.LifeChat.Activity.MainActivity">
     <item
-        android:id="@+id/sign_out"
-        android:orderInCategory="100"
-        android:title="@string/SignOut"
-        />
+        android:id="@+id/item_disconnect"
+        android:icon="@drawable/ic_disconnect_24dp"
+        android:title="disconnect"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_add_friend"
+        android:icon="@drawable/ic_person_add_black_24dp"
+        android:title="add Friend"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/item_seletive"
         android:orderInCategory="100"
-        android:title="@string/chonloc"
-         />
+        android:title="@string/chonloc" />
     <item
         android:id="@+id/item_account"
         android:orderInCategory="100"
-        android:title="@string/taikhoan"
-        />
-
-
+        android:title="@string/taikhoan" />
+    <!--<item-->
+        <!--android:id="@+id/item_friend"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/banbe" />-->
+    <item
+        android:id="@+id/item_wallpaper"
+        android:orderInCategory="100"
+        android:title="@string/nen_trang" />
+    <item
+    android:id="@+id/item_donate"
+    android:orderInCategory="100"
+    android:title="@string/ung_ho" />
+    <item
+        android:id="@+id/item_help"
+        android:orderInCategory="100"
+        android:title="@string/huong_dan" />
+    <item
+        android:id="@+id/sign_out"
+        android:orderInCategory="100"
+        android:title="@string/sign_out" />
 </menu>

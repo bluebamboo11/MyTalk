@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.blue.mytalk.Activity.EmailActivity">
+    tools:context="com.bamboo.blue.LifeChat.Activity.EmailActivity">
 <LinearLayout
 
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.example.blue.mytalk.Lined.LinedTextView
+    <com.bamboo.blue.LifeChat.Lined.LinedTextView
         android:id="@+id/text_mail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

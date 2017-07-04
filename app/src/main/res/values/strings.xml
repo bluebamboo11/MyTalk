@@ -1,6 +1,6 @@
 <resources>
     <string name="facebook_app_id">1683153145320078</string>
-    <string name="app_name">ChatKit</string>
+    <string name="app_name">Lifechat</string>
     <string name="sample_title_default">Default design</string>
     <string name="sample_title_attrs">Styling using attributes</string>
     <string name="sample_title_layout">Custom layout</string>
@@ -8,26 +8,29 @@
     <string name="hint_enter_a_message">Type a message…</string>
     <string name="on_log_click_message">Your custom long click handler</string>
     <string name="action_delete">Delete</string>
-    <string name="disconect">Lost internet connection</string>
+    <string name="disconect">No connection internet</string>
     <string name="disconect_user">Lost connection</string>
+    <string name="disconect_title">Disconect</string>
     <string name="name">Display name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
     <string name="namsinh">Year of Birth</string>
-    <string name="goitinh">sex</string>
+    <string name="goitinh">Gender</string>
     <string name="ngongu">Language</string>
     <string name="thongtin">Need to enter full information</string>
-    <string name="matketnoi">You\'ve lost connection</string>
+    <string name="matketnoi">You want to disconnect</string>
     <string name="keban">Adding Friends</string>
     <string name="moikeban">Send friend request to</string>
     <string name="taidulieu">The system is loading data. Please try again later</string>
     <string name="chuaketnoi">You have not connected</string>
     <string name="bimatketnoi">You lose the connection, select "OK" to make another connection</string>
-    <string name="dangxuat">Lost internet  connection, can not signout</string>
+    <string name="dangxuat">No connection internet, can not signout</string>
     <string name="nhanketban">Friend Requests</string>
     <string name="xacnhan">confirm</string>
     <string name="huy">cancel</string>
     <string name="SignOut">SignOut</string>
     <string name="chonloc">Seletive</string>
-    <string name="taikhoan">Account</string>
+    <string name="taikhoan">Personal</string>
     <string name="xacnhanmail">Email not verified</string>
     <string name="guimai">Verify email</string>
     <string name="tinnhanxacnhan">You need to verify your email</string>
@@ -35,7 +38,7 @@
     <string name="xoaban">Disconnect you with</string>
     <string name="tinnhanxoaban">Unfriend you. You can not send and receive messages.</string>
     <string name="nhapmail">No email yet</string>
-       <string name="thongbaoxacnhan">Please verify your email address. We need you to verify your email address.An email containing verification instructions was sent to </string>
+    <string name="thongbaoxacnhan">Please verify your email address. We need you to verify your email address.An email containing verification instructions was sent to </string>
     <string name="yes">Yes</string>
     <string name="No">No</string>
     <string name="cancel">Cancel</string>
@@ -50,8 +53,15 @@
     <string name="Required">Required</string>
     <string name="doiMatKhau">Forget password, change password.</string>
     <string name="luu">SAVE</string>
-<string name="doimatkhau_title">Password Reset</string>
-<string name="doimatkhau">Select "OK", An email containing the reset password instructions will be sent to</string>
+    <string name="banbe">Friends</string>
+    <string name="chat">Chat</string>
+    <string name="sign_out_message">You want to sign out</string>
+    <string name="nen_trang">Wallpaper: white</string>
+    <string name="nen_thoitiet">Wallpaper: weather</string>
+
+    <string name="dieukhoan">By tapping Create Account, you agree to the terms of Service and privacy policy</string>
+    <string name="doimatkhau_title">Password Reset</string>
+    <string name="doimatkhau">Select "OK", An email containing the reset password instructions will be sent to</string>
     <!--Dialog-->
     <string name="male">Male</string>
     <string name="Female">Female</string>
@@ -67,62 +77,65 @@
     </string-array>
     <string-array name="language">
         <item>English</item>
-        <item>Russian</item>
-        <item>Japanese</item>
-        <item>German</item>
-        <item>Spanish</item>
-        <item>French</item>
-        <item>Portuguese</item>
-        <item>Italian</item>
-        <item>Chinese</item>
-        <item>Chinese</item>
-        <item>Polish</item>
-        <item>Turkish</item>
-        <item>Persian</item>
-        <item>Dutch,Flemish</item>
-        <item>Korean</item>
-        <item>Czech</item>
-        <item>Arabic</item>
-        <item>Vietnamese</item>
-        <item>Indonesian</item>
-        <item>Greek</item>
-        <item>Swedish</item>
-        <item>Romanian</item>
-        <item>Hungarian</item>
-        <item>Danish</item>
-        <item>Thai</item>
-        <item>Slovak</item>
-        <item>Finnish</item>
-        <item>Bulgarian</item>
-        <item>Hebrew</item>
-        <item>Lithuanian</item>
-        <item>Norwegian</item>
-        <item>Ukrainian</item>
-        <item>Croatian</item>
-        <item>Serbian</item>
-        <item>Slovenian</item>
-        <item>Latvian</item>
-        <item>Estonian</item>
+        <item>Русский</item>
+        <item>日本語</item>
+        <item>Deutsch</item>
+        <item>Español (España)</item>
+        <item>Français (France)</item>
+        <item>Português (Portugal)</item>
+        <item>Italiano</item>
+        <item>中文(简体)</item>
+        <item>中文(香港)</item>
+        <item>中文(台灣)</item>
+        <item>Polski</item>
+        <item>Türkçe</item>
+        <item>فارسی‏</item>
+        <item>Nederlands</item>
+        <item>한국어</item>
+        <item>Čeština</item>
+        <item>العربية‏</item>
+        <item>Tiếng Việt</item>
+        <item>Bahasa Indonesia</item>
+        <item>Ελληνικά</item>
+        <item>Svenska</item>
+        <item>Română</item>
+        <item>Magyar</item>
+        <item>Dansk</item>
+        <item>हिन्दी</item>
+        <item>ภาษาไทย</item>
+        <item>Slovenčina</item>
+        <item>Suomi</item>
+        <item>Български</item>
+        <item>עברית‏</item>
+        <item>Latviešu</item>
+        <item>Norsk </item>
+        <item>Українська</item>
+        <item>Hrvatski</item>
+        <item>Српски</item>
+        <item>Slovenščina</item>
+        <item>Latviešu</item>
+        <item>Eesti</item>
+
 
     </string-array>
-    <string name="hint_user_id">User ID</string>
-    <string name="get_custom_token">Get Token</string>
+
     <string name="sign_in">Sign In</string>
     <string name="create_account">Create Account</string>
     <string name="sign_out">Sign Out</string>
     <string name="verify_email">Verify Email</string>
     <string name="disconnect">Disconnect</string>
     <string name="loading">Loading…</string>
-    <string name="custom_token">Custom Token</string>
-    <string name="signed_out">Signed Out</string>
-    <string name="token_null">Token: null</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="desc_firebase_lockup">Firebase logo and name</string>
+
+
+
     <string name="auth_failed">Authentication failed</string>
-    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
-    <string name="emailpassword_title_text">Email and Password</string>
-<!--weather-->
+    <string name="loi_gui_mail">failed to send verification email.</string>
+    <string name="gui_mail">Verification email sent to </string>
+    <string name="ung_ho">Donate</string>
+    <string name="tang">Thank you, give you a heart</string>
+    <string name="tin_ung_ho">Donate me by clicking the ad</string>
+    <string name="max_messager">Text messages up to 600 characters long</string>
+    <!--weather-->
     <string name="nang">Clear</string>
     <string name="may">Cloudy</string>
     <string name="suongmu">Foggy</string>
@@ -133,5 +146,13 @@
     <string name="bao">Stormy</string>
     <string name="giolon">Windy</string>
     <string name="khongxacdinh">Unknown</string>
+    <string name="ngat_ket_noi">Disconnect</string>
+    <string name="ket_noi">Connect</string>
+    <string name="huong_dan">Guide</string>
+
+
+
+
+
 
 </resources>

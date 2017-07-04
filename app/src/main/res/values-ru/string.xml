@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1683153145320078</string>
+    <string name="app_name">Lifechat</string>
+    <string name="sample_title_default">Default design</string>
+    <string name="sample_title_attrs">Styling using attributes</string>
+    <string name="sample_title_layout">Custom layout</string>
+    <string name="sample_title_holder">Custom view holder</string>
+    <string name="hint_enter_a_message">Написать одно сообщение </string>
+    <string name="on_log_click_message">Your custom long click handler</string>
+    <string name="action_delete">Удалить</string>
+    <string name="disconect">нет подключения к интернету </string>
+    <string name="disconect_user">Интернет отключен </string>
+    <string name="disconect_title">Интернет отключен</string>
+    <string name="name">Отображаемое имя </string>
+    <string name="email">лектронная почта</string>
+    <string name="password">Пароль</string>
+    <string name="namsinh">Год рождения</string>
+    <string name="goitinh">Пол</string>
+    <string name="ngongu">Язык</string>
+    <string name="thongtin">Необходимо ввести информацию полностью</string>
+    <string name="matketnoi">Хотите ли вы отключить  интернет</string>
+    <string name="keban">Добавить друзей</string>
+    <string name="moikeban">Отправить запрос на добавление друзей </string>
+    <string name="taidulieu">Система загружает данные. Пожалуйста попробуйте  еще раз</string>
+    <string name="chuaketnoi">Вы еще не подключаетесь к интернету</string>
+    <string name="bimatketnoi">Ваш интернет  не подключен к интернету, Нажать “Соглащение“ чтобы осуществить  другие подключения </string>
+    <string name="dangxuat">Нет подключения к интернету, не можно войти</string>
+    <string name="nhanketban">Запрос на добавление друзей</string>
+    <string name="xacnhan">Подтвердить</string>
+    <string name="huy">Отменить</string>
+    <string name="SignOut">Выйти </string>
+    <string name="chonloc">Фильтровать </string>
+    <string name="taikhoan">личный</string>
+    <string name="xacnhanmail">Почта не подтверждена</string>
+    <string name="guimai"> Подтвердить почту</string>
+    <string name="tinnhanxacnhan">Вам необходимо подтвердить свою почту</string>
+    <string name="xoabanTitle">Удалить друзей </string>
+    <string name="xoaban">Ваш интернет отключен</string>
+    <string name="tinnhanxoaban">Этот человек отменил запрос на добавление друзей с вами. Вы не можете отправлять, получать сообщение</string>
+    <string name="nhapmail"> Не было электронной почты </string>
+    <string name="thongbaoxacnhan"> Пожалуйста подтвердить вашу электронную почту. Нам вы нужны чтобы  подтвердить свою электронную почту. Одна электронная почта, в которой есть указание на подтверждение отправлена</string>
+    <string name="yes">Да</string>
+    <string name="No">Нет</string>
+    <string name="cancel">Отменить</string>
+    <string name="ok">Соглащение</string>
+    <string name="loiDaCoEmail">Ваша электронная почта  использована другим аккуантом</string>
+    <string name="loiEmailSai">Электронная почта установлена не правильно</string>
+    <string name="loipass"> Пароль введена не правильно</string>
+    <string name="loikhongCoMail">Нет дела лица, которое соответствует этой почте.</string>
+    <string name="minpass">Пароль требует не менее 6 букв.</string>
+    <string name="facebooklogin">Вход в фейсбук </string>
+    <string name="signInGoogle">Вход в Google</string>
+    <string name="Required">Обязательное поле</string>
+    <string name="doiMatKhau">Забыл пароль , Изменить пароль </string>
+    <string name="luu">Сохранить</string>
+    <string name="banbe">Друзья</string>
+    <string name="chat">Разговорить</string>
+    <string name="sign_out_message">Хотите ли вы выйти</string>
+    <string name="nen_trang">фон экрана : белый</string>
+    <string name="nen_thoitiet">фон экрана : погода</string>
+    <string name="dieukhoan">Нажимая «Регистрация», вы соглашаетесь с нашими условиями использования и нашей политикой использования данных </string>
+    <string name="doimatkhau_title">Изменить пароль </string>
+    <string name="doimatkhau">Нажать Соглащение;  Одна электронная почта, в которой имеется указание на изменение пароля отправлена сюда</string>
+    <!--Dialog-->
+    <string name="male">Мужской</string>
+    <string name="Female">Женский</string>
+    <string name="Lesbian">Лесбиянка</string>
+    <string name="Gay">Гей</string>
+    <string name="old">Возраст</string>
+    <string name="to">đến</string>
+    <string-array name="sex">
+        <item>Мужской</item>
+        <item>Женский</item>
+        <item>Лесбиянка</item>
+        <item>Гей</item>
+    </string-array>
+    <string-array name="language">
+        <item>English</item>
+        <item>Русский</item>
+        <item>日本語</item>
+        <item>Deutsch</item>
+        <item>Español (España)</item>
+        <item>Français (France)</item>
+        <item>Português (Portugal)</item>
+        <item>Italiano</item>
+        <item>中文(简体)</item>
+        <item>中文(香港)</item>
+        <item>中文(台灣)</item>
+        <item>Polski</item>
+        <item>Türkçe</item>
+        <item>فارسی‏</item>
+        <item>Nederlands</item>
+        <item>한국어</item>
+        <item>Čeština</item>
+        <item>العربية‏</item>
+        <item>Tiếng Việt</item>
+        <item>Bahasa Indonesia</item>
+        <item>Ελληνικά</item>
+        <item>Svenska</item>
+        <item>Română</item>
+        <item>Magyar</item>
+        <item>Dansk</item>
+        <item>हिन्दी</item>
+        <item>ภาษาไทย</item>
+        <item>Slovenčina</item>
+        <item>Suomi</item>
+        <item>Български</item>
+        <item>עברית‏</item>
+        <item>Latviešu</item>
+        <item>Norsk </item>
+        <item>Українська</item>
+        <item>Hrvatski</item>
+        <item>Српски</item>
+        <item>Slovenščina</item>
+        <item>Latviešu</item>
+        <item>Eesti</item>
+
+
+    </string-array>
+
+
+    <string name="sign_in">Войти</string>
+    <string name="create_account">Регистрация</string>
+    <string name="sign_out">Выйти</string>
+    <string name="verify_email">Подтвердить электронную почту</string>
+    <string name="disconnect">Ngắt kết nối</string>
+    <string name="loading">Загрузка…</string>
+
+    <string name="loi_gui_mail">Не удалось отправить подтверждение электронной почты.</string>
+    <string name="gui_mail">Адрес электронной почты проверки отправлен </string>
+    <string name="auth_failed">процесс подтверждения провален</string>
+    <string name="tin_ung_ho">Пожертвовать меня, нажав на объявление</string>
+    <string name="tang">спасибо, дам вам сердце</string>
+    <string name="ung_ho">дарить</string>
+    <!--weather-->
+    <string name="nang">Clear</string>
+    <string name="may">Cloudy</string>
+    <string name="suongmu">Foggy</string>
+    <string name="bongdam">Hazy</string>
+    <string name="dongbang">Icy</string>
+    <string name="mua">Rainy</string>
+    <string name="muatuyet">Snowy</string>
+    <string name="bao">Stormy</string>
+    <string name="giolon">Windy</string>
+    <string name="khongxacdinh">Unknown</string>
+    <string name="max_messager">Длинные сообщения до 600 символов</string>
+    <string name="ngat_ket_noi">Отключить</string>
+    <string name="ket_noi">соединение</string>
+    <string name="huong_dan">гид</string>
+
+</resources>
+

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1683153145320078</string>
+    <string name="app_name">Lifechat</string>
+    <string name="sample_title_default">Default design</string>
+    <string name="sample_title_attrs">Styling using attributes</string>
+    <string name="sample_title_layout">Custom layout</string>
+    <string name="sample_title_holder">Custom view holder</string>
+    <string name="hint_enter_a_message">一つのメッセージを書いてください</string>
+    <string name="on_log_click_message">Your custom long click handler</string>
+    <string name="action_delete">消除</string>
+    <string name="disconect">インターネット接続がありません</string>
+    <string name="disconect_user">インターネットエラー </string>
+    <string name="disconect_title">インターネットエラー</string>
+    <string name="name">表示名</string>
+    <string name="email">メール</string>
+    <string name="password">パスワード</string>
+    <string name="namsinh">生年月日</string>
+    <string name="goitinh">性別</string>
+    <string name="ngongu">言語 </string>
+    <string name="thongtin">完全な情報を記入してください</string>
+    <string name="matketnoi">接続を無効しますか？</string>
+    <string name="keban">友だち追加</string>
+    <string name="moikeban">リクエストが送信します。</string>
+    <string name="taidulieu">ダウンロード中、再接続してください</string>
+    <string name="chuaketnoi">接続できません</string>
+    <string name="bimatketnoi">接続できません、承認 を押して他の接続してください。</string>
+    <string name="dangxuat">インターネット接続がありません、ログアウト出来ません</string>
+    <string name="nhanketban">友達リクエスト</string>
+    <string name="xacnhan">確認</string>
+    <string name="huy">キャンセル</string>
+    <string name="SignOut">ログアウト</string>
+    <string name="chonloc">選択</string>
+    <string name="taikhoan">個人的</string>
+    <string name="xacnhanmail">メールが確認できません。</string>
+    <string name="guimai">メールが確認できました。</string>
+    <string name="tinnhanxacnhan">メールを確認してください。</string>
+    <string name="xoabanTitle">H友達から消除</string>
+    <string name="xoaban">インターネット接続がありません。</string>
+    <string name="tinnhanxoaban">友達から消除されました。メッセージを受送信できません</string>
+    <string name="nhapmail">メールがありません</string>
+    <string name="thongbaoxacnhan">メールアドレスが確認してください、メールアドレスの確認が必要です。確明案内メールが送されました。</string>
+    <string name="yes">はい</string>
+    <string name="No">いいえ</string>
+    <string name="cancel">キャンセル</string>
+    <string name="ok">承認</string>
+    <string name="loiDaCoEmail">他のユーザーが使用しているメールアドレス</string>
+    <string name="loiEmailSai">メールアドレスが正しくないです。</string>
+    <string name="loipass">パスワードが違います。</string>
+    <string name="loikhongCoMail">このメールに応じるIDユーザーがない。</string>
+    <string name="minpass">パスワードは6文字以上が必要</string>
+    <string name="facebooklogin">フェイスブックをログインしてください。</string>
+    <string name="signInGoogle">グーグルをログインしてください。</string>
+    <string name="Required">必須</string>
+    <string name="doiMatKhau">パスワードが忘れ、パスワードを変更</string>
+    <string name="luu">保存</string>
+    <string name="banbe">友達</string>
+    <string name="chat">メッセージを入力</string>
+    <string name="sign_out_message">ログアウト</string>
+    <string name="nen_trang">画面表示：白い</string>
+    <string name="nen_thoitiet">画面表示：天気</string>
+    <string name="dieukhoan">ＩＤユーザー設定ポタンをクリックするとサービス条件及びセキュリティ方針に従って同意する</string>
+    <string name="doimatkhau_title">パスワードの再設定</string>
+    <string name="doimatkhau">承認 をクリックして、パスワード再設定のメールを送信します</string>
+    <!--Dialog-->
+    <string name="male">男</string>
+    <string name="Female">女</string>
+    <string name="Lesbian">レズビアン</string>
+    <string name="Gay">ゲイ </string>
+    <string name="old">年齢</string>
+    <string name="to">đến</string>
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+        <item>レズビアン</item>
+        <item>ゲイ</item>
+    </string-array>
+    <string-array name="language">
+        <item>English</item>
+        <item>Русский</item>
+        <item>日本語</item>
+        <item>Deutsch</item>
+        <item>Español (España)</item>
+        <item>Français (France)</item>
+        <item>Português (Portugal)</item>
+        <item>Italiano</item>
+        <item>中文(简体)</item>
+        <item>中文(香港)</item>
+        <item>中文(台灣)</item>
+        <item>Polski</item>
+        <item>Türkçe</item>
+        <item>فارسی‏</item>
+        <item>Nederlands</item>
+        <item>한국어</item>
+        <item>Čeština</item>
+        <item>العربية‏</item>
+        <item>Tiếng Việt</item>
+        <item>Bahasa Indonesia</item>
+        <item>Ελληνικά</item>
+        <item>Svenska</item>
+        <item>Română</item>
+        <item>Magyar</item>
+        <item>Dansk</item>
+        <item>हिन्दी</item>
+        <item>ภาษาไทย</item>
+        <item>Slovenčina</item>
+        <item>Suomi</item>
+        <item>Български</item>
+        <item>עברית‏</item>
+        <item>Latviešu</item>
+        <item>Norsk </item>
+        <item>Українська</item>
+        <item>Hrvatski</item>
+        <item>Српски</item>
+        <item>Slovenščina</item>
+        <item>Latviešu</item>
+        <item>Eesti</item>
+
+
+    </string-array>
+
+
+    <string name="sign_in">ログイン</string>
+    <string name="create_account">ユーザー</string>
+    <string name="sign_out">ログアウト</string>
+    <string name="verify_email">メール確認 </string>
+    <string name="disconnect">ディスコネクト</string>
+    <string name="loading">ダウンロード中</string>
+
+    <string name="loi_gui_mail">確認メールを送信できませんでした。</string>
+    <string name="gui_mail">送信された確認メール </string>
+    <string name="ung_ho">寄付し</string>
+    <string name="tin_ung_ho">広告をクリックして寄付する</string>
+    <string name="auth_failed">認証プロセスを失敗</string>
+    <string name="tang">ありがとう</string>
+    <!--weather-->
+    <string name="nang">Clear</string>
+    <string name="may">Cloudy</string>
+    <string name="suongmu">Foggy</string>
+    <string name="bongdam">Hazy</string>
+    <string name="dongbang">Icy</string>
+    <string name="mua">Rainy</string>
+    <string name="muatuyet">Snowy</string>
+    <string name="bao">Stormy</string>
+    <string name="giolon">Windy</string>
+    <string name="khongxacdinh">Unknown</string>
+    <string name="max_messager">長い600文字までのテキストメッセージ</string>
+    <string name="ngat_ket_noi">ディスコネクト</string>
+    <string name="ket_noi">接続</string>
+    <string name="huong_dan">ガイド</string>
+
+</resources>
+

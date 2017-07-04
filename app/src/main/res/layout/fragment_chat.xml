@@ -1,29 +1,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/img_chay"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/img_chay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="center" />
+
     <TextView
-        android:textSize="@dimen/text_size_nor"
         android:id="@+id/text_connect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/vang"
         android:gravity="center"
         android:text="@string/disconect"
-        android:visibility="gone"
-         />
+        android:textSize="@dimen/text_size_nor"
+        android:visibility="gone" />
+
     <android.support.v7.widget.CardView
-        android:layout_below="@id/text_connect"
-       android:layout_margin="@dimen/margin_smallest"
         android:id="@+id/cardview"
-         android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/text_connect"
+        android:layout_margin="@dimen/margin_smallest"
+        app:cardBackgroundColor="#7af4f2f2"
         app:cardCornerRadius="@dimen/radius">
 
         <LinearLayout
@@ -32,12 +31,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <LinearLayout
+
                 android:id="@+id/layout_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -46,84 +47,102 @@
                 android:orientation="horizontal">
 
                 <TextView
+
                     android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
+                    android:lines="1"
+                    android:maxLines="1"
                     android:textSize="@dimen/text_size_large" />
 
                 <ImageView
                     android:id="@+id/img_online"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/margin_smallest"
+                    android:layout_marginLeft="@dimen/margin_small"
                     android:src="@drawable/shape_bubble_offline" />
             </LinearLayout>
 
             <TextView
-                android:text="0"
                 android:id="@+id/text_love"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="right"
-                android:textSize="@dimen/text_size_large"/>
+                android:gravity="center_vertical|right"
+                android:text="0"
+                android:textSize="@dimen/text_size_large" />
 
             <ImageView
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:id="@+id/img_love"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1.5"
                 android:src="@drawable/ic_heart_24dp" />
         </LinearLayout>
 
         <LinearLayout
+
             android:id="@+id/layout_load"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-          >
+            android:layout_height="match_parent"
+            android:background="#8dffffff">
 
             <ProgressBar
                 android:id="@+id/progressBar_load_name"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
     </android.support.v7.widget.CardView>
 
     <com.stfalcon.chatkit.messages.MessagesList
-
         android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input"
         android:layout_below="@+id/cardview"
+        app:dateHeaderTextColor="@color/white"
         app:incomingBubbleDrawable="@drawable/bg_custom_incoming_message"
+        app:incomingTimeTextColor="@color/white"
         app:outcomingBubbleDrawable="@drawable/bg_custom_outcoming_message"
-        app:outcomingTimeTextColor="@color/gray_dark_transparent" />
+        app:outcomingTimeTextColor="@color/white" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@+id/input"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:background="@color/gray_light" />
 
     <com.stfalcon.chatkit.messages.MessageInput
-      app:inputTextSize="@dimen/padding_nor"
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="#75ffffff"
         app:inputButtonBackground="@drawable/bg_custom_layout_send"
         app:inputButtonIcon="@drawable/ic_send_selector"
         app:inputHint="@string/hint_enter_a_message"
-        app:inputTextColor="@color/gray_dark_transparent" />
+        app:inputHintColor="@color/black"
+        app:inputMaxLines="10"
+        app:inputTextColor="@color/black"
+        app:inputTextSize="@dimen/text_size_nor" />
+
+    <RelativeLayout
+        android:layout_below="@+id/cardview"
+        android:gravity="center"
+        android:layout_margin="@dimen/margin_small"
+        android:layout_above="@+id/input"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
 
 
 </RelativeLayout>

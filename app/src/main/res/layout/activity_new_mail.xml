@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    tools:context="com.example.blue.mytalk.Activity.NewMailActivity">
-<com.example.blue.mytalk.Lined.LinedEditText
+    tools:context="com.bamboo.blue.LifeChat.Activity.NewMailActivity">
+<com.bamboo.blue.LifeChat.Lined.LinedEditText
     android:gravity="top"
     android:textSize="25dp"
     android:background="@android:color/white"

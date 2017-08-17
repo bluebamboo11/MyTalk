@@ -71,12 +71,13 @@ public class FriendsFragment extends Fragment {
     private static String key = "";
     private DatabaseReference databaseReference;
     private DatabaseReference ref;
-    private    ArrayList<DefaultDialog> dialogArrayList;
+    private ArrayList<DefaultDialog> dialogArrayList;
     private DatabaseReference df;
     private static ArrayList<ValueEventListener> valueEventListenerArrayList;
     public final static String PASS = "APA91bE8XzkxtjfstWQZdVpn4d818qhhiXHtBs3kOMCZSINFVlCwmqD01CrnkiEEjuJEO_hsOPEcpSZNsm9YpCGgRRqMvkzQNVVuAdQ6KI3yLNFjd40TCrmp7OiN1li_hpdFS9AE1hjo";
     boolean b = false;
-private String uid;
+    private String uid;
+
     public FriendsFragment() {
         // Required empty public constructor
     }
@@ -92,7 +93,7 @@ private String uid;
         valueEventListenerArrayList = new ArrayList<>();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleview_friend);
         SaveLoad saveLoad = new SaveLoad(getContext());
-        uid=saveLoad.loadString(SaveLoad.UID,null);
+        uid = saveLoad.loadString(SaveLoad.UID, null);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         refMessages = databaseReference.child(ChatFragment.USER).child(uid).child("message");
         ref = databaseReference.child("User").child(ChatFragment.getUid()).child(FriendAdapter.FRIEND).child(FriendAdapter.CHAT);
@@ -111,11 +112,11 @@ private String uid;
             @Override
             public void loadImage(ImageView imageView, String url) {
 
-                if (url != null ) {
-                    int img=Integer.parseInt(url);
-                    switch (img){
+                if (url != null) {
+                    int img = Integer.parseInt(url);
+                    switch (img) {
                         case Weather.CONDITION_CLEAR:
-                          imageView.setImageResource(R.drawable.ic_clear);
+                            imageView.setImageResource(R.drawable.ic_clear);
                             break;
                         case Weather.CONDITION_CLOUDY:
                             imageView.setImageResource(R.drawable.ic_cloudy);
@@ -152,7 +153,7 @@ private String uid;
         ArrayList<DefaultUser> defaultUserArrayList = databaseManager.getAllUser(uid);
         dialogArrayList = new ArrayList<>();
         for (DefaultUser defaultUser : defaultUserArrayList) {
-            ArrayList<Message> messageList = databaseManager.getAllMessages(defaultUser.getId(),uid,0);
+            ArrayList<Message> messageList = databaseManager.getAllMessages(defaultUser.getId(), uid, 0);
             ArrayList<IUser> defaultUsers = new ArrayList<>();
             defaultUsers.add(defaultUser);
             if (messageList.size() != 0) {
@@ -195,19 +196,19 @@ private String uid;
         childEventListenerFriend = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Friend friend=dataSnapshot.getValue(Friend.class);
+                Friend friend = dataSnapshot.getValue(Friend.class);
 
                 DefaultUser defaultUser = new DefaultUser(friend.id, friend.name, String.valueOf(MainActivity.weather), false);
                 List<Message> messageList = null;
                 try {
-                    messageList = databaseManager.getAllMessages(friend.id,uid,0);
+                    messageList = databaseManager.getAllMessages(friend.id, uid, 0);
                 } catch (Exception e) {
-                    SaveLoad saveLoad=new SaveLoad(getContext());
-                    databaseManager.creatTab(friend.id,uid);
+                    SaveLoad saveLoad = new SaveLoad(getContext());
+                    databaseManager.creatTab(friend.id, uid);
                     saveLoad.saveString(SaveLoad.NAME + friend.id, friend.cName);
                     messageList = new ArrayList<>();
                 }
-                if (databaseManager.getUser(friend.id,uid) == null) {
+                if (databaseManager.getUser(friend.id, uid) == null) {
                     databaseManager.setUser(defaultUser, uid);
 
                     ArrayList<IUser> defaultUsers = new ArrayList<>();
@@ -288,7 +289,7 @@ private String uid;
 
                     MessageFireBase messageFireBase = dataSnapshot.getValue(MessageFireBase.class);
                     try {
-                        DefaultUser defaultUser = databaseManager.getUser(messageFireBase.id,uid);
+                        DefaultUser defaultUser = databaseManager.getUser(messageFireBase.id, uid);
                         Date date = null;
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
                         try {
@@ -302,12 +303,12 @@ private String uid;
                         defaultUsers.add(defaultUser);
 
                         if (ChatFragment.getCid() != null && messageFireBase.id.equals(ChatFragment.getCid())) {
-                            databaseManager.setMessages(message, messageFireBase.id,uid);
+                            databaseManager.setMessages(message, messageFireBase.id, uid);
                             dialogsListAdapter.updateDialogWithMessage(messageFireBase.id, message);
                         } else {
-                            databaseManager.setMessages(message, messageFireBase.id,uid);
+                            databaseManager.setMessages(message, messageFireBase.id, uid);
                             int sl = defaultUser.getCount();
-                            databaseManager.updateUser(messageFireBase.id,uid, sl + 1);
+                            databaseManager.updateUser(messageFireBase.id, uid, sl + 1);
                             DefaultDialog defaultDialog = new DefaultDialog(defaultUser.getId(), defaultUser.getName(), defaultUser.getAva(),
                                     defaultUsers, message, sl + 1);
                             dialogsListAdapter.updateItemById(defaultDialog);
@@ -320,9 +321,14 @@ private String uid;
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        DefaultUser defaultUser=new DefaultUser(messageFireBase.id,"","",true);
+                        DefaultUser defaultUser = new DefaultUser(messageFireBase.id, "", "", true);
                         Message message = new Message(messageFireBase.text, defaultUser, date);
-                        databaseManager.setMessages(message, messageFireBase.id,uid);
+                        try {
+                            databaseManager.creatTab(messageFireBase.id, uid);
+                            databaseManager.setMessages(message, messageFireBase.id, uid);
+                        } catch (Exception e) {
+                            databaseManager.setMessages(message, messageFireBase.id, uid);
+                        }
                     }
                 }
 
@@ -377,7 +383,6 @@ private String uid;
 
         databaseReference.child("User").child(dialog.getId()).child("online").addValueEventListener(valueEventListenerOnline);
     }
-
 
 
     private void addFriend() {
@@ -457,7 +462,7 @@ private String uid;
                                             @Override
                                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                                 dialogsListAdapter.deleteById(dialogs.getId());
-                                                databaseManager.deleteUser(dialogs.getId(),uid);
+                                                databaseManager.deleteUser(dialogs.getId(), uid);
 
                                             }
                                         });
@@ -470,8 +475,9 @@ private String uid;
 
         alertDialog.show();
     }
-    private void setupAD(View view){
-        SaveLoad saveLoad=new SaveLoad(getContext());
+
+    private void setupAD(View view) {
+        SaveLoad saveLoad = new SaveLoad(getContext());
         int old = saveLoad.loadInteger(SaveLoad.OLD + uid, 2010);
         int sex = saveLoad.loadInteger(SaveLoad.SEX + uid, 1);
         switch (sex) {
@@ -485,9 +491,9 @@ private String uid;
                 sex = AdRequest.GENDER_UNKNOWN;
                 break;
         }
-         final AdView mAdView = (AdView) view.findViewById(R.id.adView);
-              AdRequest request = new AdRequest.Builder()
-                               .setBirthday(new GregorianCalendar(old, 1, 1).getTime())
+        final AdView mAdView = (AdView) view.findViewById(R.id.adView);
+        AdRequest request = new AdRequest.Builder()
+                .setBirthday(new GregorianCalendar(old, 1, 1).getTime())
                 .setGender(sex)
                 .build();
         mAdView.loadAd(request);
@@ -495,7 +501,8 @@ private String uid;
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                super.onAdLoaded();mAdView.setVisibility(View.VISIBLE);
+                super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
 
             }
 

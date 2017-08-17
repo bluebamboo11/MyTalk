@@ -148,6 +148,7 @@
     <string name="ngat_ket_noi">ディスコネクト</string>
     <string name="ket_noi">接続</string>
     <string name="huong_dan">ガイド</string>
+    <string name="tinnhan_dau">接続は、オブジェクトのマッチングを見つけるために設定されます。あなたは、アプリケーションをオフにした場合でも。だから、アプリケーションをアンインストールするために急いではありません。</string>
 
 </resources>
 

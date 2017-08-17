@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().setBackgroundDrawableResource(R.drawable.wall);
         setContentView(R.layout.activity_main);
         saveLoad = new SaveLoad(this);
         setAD();
@@ -158,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         setupTablayout();
         checkConnect();
         if (saveLoad.loadBoolean(SaveLoad.HELP, true)) {
-            saveLoad.seveBoolean(SaveLoad.HELP, false);
+
             openDialogHelp();
         }
     }
@@ -236,15 +234,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MainActivity.menu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem menuItem = menu.findItem(R.id.item_wallpaper);
+//        MenuItem menuItem = menu.findItem(R.id.item_wallpaper);
         item = menu.findItem(R.id.item_disconnect);
-        if (saveLoad.loadBoolean(SaveLoad.WALLPAPER, true)) {
-            menuItem.setTitle(R.string.nen_trang);
-            setBackgroud(weather);
-            getWeather();
-        } else {
-            menuItem.setTitle(R.string.nen_thoitiet);
-        }
+//        if (saveLoad.loadBoolean(SaveLoad.WALLPAPER, true)) {
+//            menuItem.setTitle(R.string.nen_trang);
+//            setBackgroud(weather);
+//            getWeather();
+//        } else {
+//            menuItem.setTitle(R.string.nen_thoitiet);
+//        }
         if (saveLoad.loadBoolean(SaveLoad.IS_CONNECT + uid, true)) {
             item.setIcon(R.drawable.ic_disconnect_24dp);
         } else {
@@ -317,18 +315,18 @@ public class MainActivity extends AppCompatActivity {
 //                    mViewPager.setCurrentItem(0);
 //                }
 //                return true;
-            case R.id.item_wallpaper:
-                boolean wallpaper = saveLoad.loadBoolean(SaveLoad.WALLPAPER, true);
-                if (wallpaper) {
-                    saveLoad.seveBoolean(SaveLoad.WALLPAPER, false);
-                    item.setTitle(R.string.nen_thoitiet);
-                    getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                } else {
-                    saveLoad.seveBoolean(SaveLoad.WALLPAPER, true);
-                    item.setTitle(R.string.nen_trang);
-                    getWeather();
-                }
-                return true;
+//            case R.id.item_wallpaper:
+//                boolean wallpaper = saveLoad.loadBoolean(SaveLoad.WALLPAPER, true);
+//                if (wallpaper) {
+//                    saveLoad.seveBoolean(SaveLoad.WALLPAPER, false);
+//                    item.setTitle(R.string.nen_thoitiet);
+//                    getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+//                } else {
+//                    saveLoad.seveBoolean(SaveLoad.WALLPAPER, true);
+//                    item.setTitle(R.string.nen_trang);
+//                    getWeather();
+//                }
+//                return true;
             case R.id.item_donate:
                 openDialogAD();
 
@@ -713,7 +711,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResult(@NonNull WeatherResult weatherResult) {
                 int[] i = weatherResult.getWeather().getConditions();
                 for (int x : i) {
-                    setBackgroud(x);
+//                    setBackgroud(x);
                 }
             }
         });

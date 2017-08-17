@@ -12,7 +12,8 @@
         android:orientation="horizontal">
 
         <CheckBox
-            android:id="@+id/checkbox_girl"
+            android:id="@+id/checkbox_boy"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,7 +38,7 @@
 
 
         <CheckBox
-            android:id="@+id/checkbox_boy"
+            android:id="@+id/checkbox_girl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -62,17 +63,17 @@
 
         <CheckBox
             android:id="@+id/checkbox_old"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+
             android:text="@string/old"
             android:textSize="@dimen/text_size_nor" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_marginLeft="@dimen/margin_small"
             android:orientation="horizontal">
 
             <EditText
@@ -81,7 +82,7 @@
                 android:layout_width="@dimen/buton_size"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/margin_smallest"
                 android:gravity="center"
                 android:inputType="number|textPersonName"
 
@@ -89,7 +90,7 @@
                 android:textSize="@dimen/text_size_large" />
 
            <ImageView
-               android:layout_marginLeft="@dimen/activity_horizontal_margin"
+               android:layout_marginLeft="@dimen/margin_smallest"
                android:layout_gravity="center"
                android:layout_width="@dimen/love"
                android:layout_height="@dimen/love"
@@ -102,7 +103,7 @@
                 android:layout_width="@dimen/buton_size"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/margin_smallest"
                 android:inputType="number|textPersonName"
 
                 android:maxLength="2"

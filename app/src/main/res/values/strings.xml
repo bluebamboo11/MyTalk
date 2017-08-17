@@ -150,7 +150,7 @@
     <string name="ket_noi">Connect</string>
     <string name="huong_dan">Guide</string>
 
-
+    <string name="tinnhan_dau">Connections will be established when matching objects are found. Even when you shut down the application. So do not rush to uninstall the app.</string>
 
 
 

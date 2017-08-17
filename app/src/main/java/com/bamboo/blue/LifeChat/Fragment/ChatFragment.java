@@ -224,7 +224,12 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Cid = dataSnapshot.getValue(String.class);
-
+                if ((Cid == null || Cid.equals("0"))) {
+                    DefaultUser defaultUser = new DefaultUser("admin", "", "", true);
+                    Calendar calendar = Calendar.getInstance();
+                    Message message = new Message(-100L, getString(R.string.tinnhan_dau), defaultUser, calendar.getTime());
+                    adapter.addToStart(message, false);
+                }
                 if (Cid == null) {
                     // gui du lieu len danh sach
                     pushUser();
@@ -234,8 +239,7 @@ public class ChatFragment extends Fragment {
                     saveLoad.saveString(SaveLoad.ID_CONNECT + uid, null);
                     Checkconnect = false;
                     messages = new ArrayList<>();
-                    adapter.clear();
-                    adapter.notifyDataSetChanged();
+
                     loadName();
                 } else {
                     if (Cid.equals("0")) {
@@ -282,6 +286,11 @@ public class ChatFragment extends Fragment {
                                                     }
                                                 } else {
                                                     if (Cid != null && c.equals(uid)) {
+                                                        try {
+                                                            databaseManager.creatTab(uid, Cid);
+                                                        } catch (Exception ignored) {
+
+                                                        }
                                                         getIdToken();
                                                         setOnline();
                                                         mFirebaseDatabaseReference.child(USER).child(uid).child(CONNECT).child(CHAT).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -303,11 +312,9 @@ public class ChatFragment extends Fragment {
                                                             dfLau.removeEventListener(childEventListenerConnect);
                                                         }
                                                         mFirebaseDatabaseReference.child(lau).child(uid).removeValue();
-                                                        try {
-                                                            databaseManager.creatTab(uid, Cid);
-                                                        } catch (Exception ignored) {
+                                                        mFirebaseDatabaseReference.child(lau).child(Cid).removeValue();
 
-                                                        }
+
                                                         saveLoad.saveString(SaveLoad.NAME + Cid, saveLoad.loadString(SaveLoad.NAME_U + uid, ""));
                                                         setNotFriend();
                                                         setLove();
@@ -369,6 +376,7 @@ public class ChatFragment extends Fragment {
                 dfConnect.addValueEventListener(valueEventListenerCid);
 
                 dfConnect.keepSynced(true);
+
             } else {
                 dfConnect.removeEventListener(valueEventListenerCid);
                 if (valueEventListenerOnline != null && dfSetOnline != null) {
@@ -384,6 +392,7 @@ public class ChatFragment extends Fragment {
                 messages = new ArrayList<>();
                 adapter.clear();
                 adapter.notifyDataSetChanged();
+
 
             }
         } else {
@@ -420,7 +429,13 @@ public class ChatFragment extends Fragment {
         adapter.setLoadMoreListener(new MessagesListAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                loadMessages(totalItemsCount);
+                if (Cid != null && !Cid.equals("0")) {
+                    try {
+                        loadMessages(totalItemsCount);
+                    } catch (Exception ignored) {
+
+                    }
+                }
 
 
             }
@@ -515,7 +530,11 @@ public class ChatFragment extends Fragment {
                 message.setSent(true);
                 message.setDate(calendar.getTime());
                 adapter.update(message);
+               try{
                 databaseManager.updateMessages(message, Cid, uid);
+            }catch (Exception e){
+
+               }
             }
         });
     }
@@ -526,18 +545,19 @@ public class ChatFragment extends Fragment {
         childEventListenerConnect = new ChildEventListener() {
             @Override
             public void onChildAdded(final DataSnapshot dataSnapshot, String s) {
-                if (!dataSnapshot.getKey().equals(uid)&&checkFriend(dataSnapshot.getKey())) {
+                if (!dataSnapshot.getKey().equals(uid) ) {
                     try {
                         final UserConnect userConnect1 = dataSnapshot.getValue(UserConnect.class);
+                        KeyCid = dataSnapshot.getKey();
                         if (isSelective(userConnect1, selective) && isSelective(userConnect, userConnect1.selective)) {
-                            mFirebaseDatabaseReference.child(USER).child(dataSnapshot.getKey()).child(CONNECT).child(CHAT).runTransaction(new Transaction.Handler() {
+                            mFirebaseDatabaseReference.child(USER).child(uid).child(CONNECT).child(CHAT).runTransaction(new Transaction.Handler() {
                                 @Override
                                 public Transaction.Result doTransaction(MutableData mutableData) {
 
                                     Chat connect = mutableData.getValue(Chat.class);
                                     if (connect == null) {
-                                        connect = new Chat(uid, saveLoad.loadString(SaveLoad.NAME_U + uid, ""));
-                                        KeyCid = dataSnapshot.getKey();
+                                        connect = new Chat(KeyCid, userConnect1.name);
+
                                         mutableData.setValue(connect);
 
                                     } else {
@@ -550,16 +570,16 @@ public class ChatFragment extends Fragment {
                                 @Override
                                 public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
                                     if (b && databaseError != null) {
-                                        mFirebaseDatabaseReference.child(USER).child(KeyCid).child(CONNECT).child(CHAT).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        mFirebaseDatabaseReference.child(USER).child(uid).child(CONNECT).child(CHAT).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                                if (uid.equals(dataSnapshot.getValue(Chat.class).id)) {
-                                                    mFirebaseDatabaseReference.child(USER).child(uid).child(CONNECT).child(CHAT).runTransaction(new Transaction.Handler() {
+                                                if (KeyCid.equals(dataSnapshot.getValue(Chat.class).id)) {
+                                                    mFirebaseDatabaseReference.child(USER).child(KeyCid).child(CONNECT).child(CHAT).runTransaction(new Transaction.Handler() {
                                                         @Override
                                                         public Transaction.Result doTransaction(MutableData mutableData) {
                                                             Chat connect = mutableData.getValue(Chat.class);
                                                             if (connect == null) {
-                                                                connect = new Chat(KeyCid, userConnect1.name);
+                                                                connect = new Chat(uid, saveLoad.loadString(SaveLoad.NAME_U + uid, ""));
                                                                 mutableData.setValue(connect);
 
                                                             } else {
@@ -572,12 +592,12 @@ public class ChatFragment extends Fragment {
                                                         @Override
                                                         public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
                                                             if (b) {
-                                                                mFirebaseDatabaseReference.child(USER).child(uid).child(CONNECT).child(CHAT).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                mFirebaseDatabaseReference.child(USER).child(KeyCid).child(CONNECT).child(CHAT).addListenerForSingleValueEvent(new ValueEventListener() {
                                                                     @Override
                                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                                         try {
                                                                             Chat chat = dataSnapshot.getValue(Chat.class);
-                                                                            if (chat.id.equals(KeyCid)) {
+                                                                            if (chat.id.equals(uid)) {
                                                                                 Checkconnect = true;
                                                                                 saveLoad.saveString(SaveLoad.NAME + Cid, saveLoad.loadString(SaveLoad.NAME_U + uid, ""));
                                                                                 dfLau.child(KeyCid).removeValue();
@@ -1040,8 +1060,8 @@ public class ChatFragment extends Fragment {
 
                 adContainer.addView(adView);
                 if (saveLoad.loadBoolean(SaveLoad.AD + uid, false)) {
-                adView.loadAd(request);}
-                else {
+                    adView.loadAd(request);
+                } else {
                     adContainer.setVisibility(View.GONE);
                 }
             }

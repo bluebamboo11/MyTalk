@@ -145,6 +145,7 @@
     <string name="ngat_ket_noi">Ngắt kết nối</string>
     <string name="ket_noi">kết nối</string>
     <string name="huong_dan">Hướng dẫn</string>
+    <string name="tinnhan_dau">Kết nối sẽ được thiết lập khi tìm thấy đối tượng phù hợp. Kể cả khi bạn tắt ứng dụng. Vậy nên đừng vội gỡ cài đặt ứng dụng.</string>
 
 
 </resources>

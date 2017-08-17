@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference dfSetLove;
     private String uid;
     private InterstitialAd mInterstitialAd;
-
+private int yead;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +51,10 @@ public class LoginActivity extends AppCompatActivity {
 //setAD();
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         Calendar calendar = Calendar.getInstance();
-        int yead = calendar.get(Calendar.YEAR);
+         yead = calendar.get(Calendar.YEAR);
         final Integer[] olds = new Integer[80];
         for (int i = 0; i < 80; i++) {
-            olds[i] = yead - 18 - i;
+            olds[i] = yead - 13 - i;
         }
 
         SaveLoad saveLoad = new SaveLoad(this);
@@ -120,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
 
         checkPass = saveLoad.loadBoolean(SaveLoad.CHECKPASS + uid, false);
         old = saveLoad.loadInteger(SaveLoad.OLD + uid, 2010);
+        Log.e("old",old+"");
         sex = saveLoad.loadInteger(SaveLoad.SEX + uid, 1);
         language = saveLoad.loadInteger(SaveLoad.LANGUAGE + uid, 0);
     }
@@ -128,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
         textName.setText(name);
 
         spinnerLanguage.setSelection(language);
-        spinnerOld.setSelection(2010 - old);
+        spinnerOld.setSelection(yead -13- old);
         spinnerSex.setSelection(sex);
     }
 

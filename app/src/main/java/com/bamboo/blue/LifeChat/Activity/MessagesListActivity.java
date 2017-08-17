@@ -36,11 +36,9 @@ import com.bamboo.blue.LifeChat.R;
 import com.bamboo.blue.LifeChat.SaveLoad;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.awareness.Awareness;
-import com.google.android.gms.awareness.snapshot.WeatherResult;
 import com.google.android.gms.awareness.state.Weather;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -134,7 +132,7 @@ public class MessagesListActivity extends AppCompatActivity {
         checkConnect();
         setOnline();
         setLove();
-
+        getWindow().setBackgroundDrawableResource(R.drawable.wall);
         input = (MessageInput) findViewById(R.id.input);
         input.setInputListener(new MessageInput.InputListener() {
             @Override
@@ -679,15 +677,15 @@ public class MessagesListActivity extends AppCompatActivity {
 
             return;
         }
-        Awareness.SnapshotApi.getWeather(mGoogleApiClient).setResultCallback(new ResultCallback<WeatherResult>() {
-            @Override
-            public void onResult(@NonNull WeatherResult weatherResult) {
-                int[] i = weatherResult.getWeather().getConditions();
-                for (int x : i) {
-                    setBackgroud(x);
-                }
-            }
-        });
+//        Awareness.SnapshotApi.getWeather(mGoogleApiClient).setResultCallback(new ResultCallback<WeatherResult>() {
+//            @Override
+//            public void onResult(@NonNull WeatherResult weatherResult) {
+//                int[] i = weatherResult.getWeather().getConditions();
+//                for (int x : i) {
+////                    setBackgroud(x);
+//                }
+//            }
+//        });
 
     }
 }

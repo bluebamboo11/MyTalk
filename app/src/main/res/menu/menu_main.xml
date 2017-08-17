@@ -25,10 +25,10 @@
         <!--android:id="@+id/item_friend"-->
         <!--android:orderInCategory="100"-->
         <!--android:title="@string/banbe" />-->
-    <item
-        android:id="@+id/item_wallpaper"
-        android:orderInCategory="100"
-        android:title="@string/nen_trang" />
+    <!--<item-->
+        <!--android:id="@+id/item_wallpaper"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/nen_trang" />-->
     <item
     android:id="@+id/item_donate"
     android:orderInCategory="100"

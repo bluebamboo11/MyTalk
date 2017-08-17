@@ -148,6 +148,7 @@
     <string name="ngat_ket_noi">Отключить</string>
     <string name="ket_noi">соединение</string>
     <string name="huong_dan">гид</string>
+    <string name="tinnhan_dau">Соединение будет установлено, чтобы найти соответствие объекта. Даже если отключить приложение. Так что не спешите удалять приложения.</string>
 
 </resources>
 

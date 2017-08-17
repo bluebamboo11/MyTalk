@@ -23,13 +23,14 @@ public class HelpDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_help);
         setTitle(R.string.huong_dan);
-
+        final SaveLoad saveLoad = new SaveLoad(getContext());
         setCanceledOnTouchOutside(false);
         Button button = (Button) findViewById(R.id.button_ok);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
+                saveLoad.seveBoolean(SaveLoad.HELP, false);
             }
         });
     }

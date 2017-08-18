@@ -224,12 +224,16 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Cid = dataSnapshot.getValue(String.class);
+              try{
                 if ((Cid == null || Cid.equals("0"))) {
                     DefaultUser defaultUser = new DefaultUser("admin", "", "", true);
                     Calendar calendar = Calendar.getInstance();
                     Message message = new Message(-100L, getString(R.string.tinnhan_dau), defaultUser, calendar.getTime());
                     adapter.addToStart(message, false);
                 }
+              }catch (Exception ignored){
+
+              }
                 if (Cid == null) {
                     // gui du lieu len danh sach
                     pushUser();

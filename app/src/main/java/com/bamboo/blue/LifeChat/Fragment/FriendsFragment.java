@@ -274,8 +274,14 @@ public class FriendsFragment extends Fragment {
         df.removeEventListener(childEventListenerAdd);
         int i = 0;
         for (DefaultDialog defaultDialog : dialogArrayList) {
+            try{
             databaseReference.child("User").child(defaultDialog.getId()).child("online").removeEventListener(valueEventListenerArrayList.get(i));
             i++;
+            }catch (Exception ignored){
+
+            }
+
+
         }
     }
 

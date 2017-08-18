@@ -267,7 +267,7 @@ public class ChatFragment extends Fragment {
 
                             @Override
                             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                                if (b && databaseError == null) {
+                                if (b && databaseError == null&&Cid!=null) {
                                     mFirebaseDatabaseReference.child(USER).child(Cid).child(CONNECT).child(CHAT).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -603,7 +603,11 @@ public class ChatFragment extends Fragment {
                                                                                 dfLau.child(KeyCid).removeValue();
                                                                                 dfLau.child(uid).removeValue();
                                                                             }
+                                                                            else {
+                                                                                mFirebaseDatabaseReference.child(USER).child(uid).child(CONNECT).child(CHAT).removeValue();
+                                                                            }
                                                                         } catch (Exception ignored) {
+
                                                                         }
                                                                     }
 
